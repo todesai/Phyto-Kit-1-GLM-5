@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://ods.od.nih.gov/Research/Dietary_Supplement_Label_Database.aspx",
+    "name": "Dietary Supplement Label Database (DSLD)",
+    "snippet": "The Dietary Supplement Label Database (DSLD) was developed by the Office of Dietary Supplements (ODS) at the National Institutes of Health (NIH).",
+    "host_name": "ods.od.nih.gov",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dsld.od.nih.gov",
+    "name": "Home | Dietary Supplement Label Database (DSLD) | NIH Office of",
+    "snippet": "NIH's Dietary Supplement Label Database (DSLD) is a searchable database of current and historical label information from products marketed in the U.S..",
+    "host_name": "dsld.od.nih.gov",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dsld-dev-web.app.cloud.gov/api-guide",
+    "name": "API Guide | Dietary Supplement Label Database (DSLD) | NIH Office of",
+    "snippet": "The DSLD REST API provides access to the product labels, brands, and ingredient information available in NIH's Dietary Supplement Label Database (DSLD). It is ...",
+    "host_name": "dsld-dev-web.app.cloud.gov",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "http://3.216.223.78/dsldnxt",
+    "name": "Home | Dietary Supplement Label Database (DSLD)",
+    "snippet": "NIH's Dietary Supplement Label Database (DSLD) is a searchable database of current and historical label information from products marketed in the U.S..",
+    "host_name": "3.216.223.78",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.supplysidesj.com/labeling/nih-dietary-supplement-label-database-dsld-is-robust-public-resource",
+    "name": "NIH Dietary Supplement Label Database (DSLD) is robust public",
+    "snippet": "The National Institutes of Health (NIH) Dietary Supplement Label Database (DSLD) is a public database funded, developed and maintained by NIH's ...",
+    "host_name": "www.supplysidesj.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

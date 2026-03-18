@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard",
+    "name": "CompTox Chemicals Dashboard",
+    "snippet": "The Dashboard contains chemistry, toxicity and exposure information for over one million chemicals, with over 300 chemical lists based on structure or category. Missing: documentation | Show results with: documentation",
+    "host_name": "www.epa.gov",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis",
+    "name": "Computational Toxicology and Exposure APIs",
+    "snippet": "APIs can effectively automate the process of accessing and downloading the data, such as data used to populate the CompTox Chemicals Dashboard.",
+    "host_name": "www.epa.gov",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5705535",
+    "name": "The CompTox Chemistry Dashboard",
+    "snippet": "These data include physicochemical, environmental fate and transport, exposure, usage, in vivo toxicity, and in vitro bioassay data, surfaced ...",
+    "host_name": "pmc.ncbi.nlm.nih.gov",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://epa.figshare.com/ndownloader/files/46997533",
+    "name": "[PDF] CompTox Chemicals Dashboard & Hazard Data - Figshare",
+    "snippet": "The Toxicity Reference Database (ToxRefDB) contains in vivo study data from over 5900 guideline or guideline-like studies for over 1100 ...",
+    "host_name": "epa.figshare.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/USEPA/CompTox-ToxRefDB",
+    "name": "Toxicity Reference Database (ToxRefDB)",
+    "snippet": "The Toxicity Reference Database (ToxRefDB) serves as a resource for structured animal toxicity data for many retrospective and predictive toxicology ...",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

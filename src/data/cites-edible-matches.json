@@ -1,0 +1,145 @@
+{
+  "summary": {
+    "totalEdibleSpecies": 396,
+    "totalCitesMatches": 8,
+    "appendixI": 1,
+    "appendixII": 6,
+    "appendixIII": 1
+  },
+  "appendixI": [
+    {
+      "scientificName": "Struthio camelus",
+      "englishName": "Ostrich",
+      "category": "Livestock - Poultry",
+      "citesStatus": "I",
+      "kingdom": "Animalia",
+      "family": "Struthionidae"
+    }
+  ],
+  "appendixII": [
+    {
+      "scientificName": "Opuntia ficus-indica",
+      "englishName": "Nopal (Prickly Pear Pad)",
+      "category": "Vegetables - Fruit",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "scientificName": "Cycas revoluta",
+      "englishName": "Sago Palm",
+      "category": "Vegetables - Root",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cycadaceae"
+    },
+    {
+      "scientificName": "Vanilla planifolia",
+      "englishName": "Vanilla",
+      "category": "Herbs & Spices",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Orchidaceae"
+    },
+    {
+      "scientificName": "Rhea americana",
+      "englishName": "Rhea",
+      "category": "Livestock - Poultry",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Rheidae"
+    },
+    {
+      "scientificName": "Anguilla anguilla",
+      "englishName": "Anguila",
+      "category": "Seafood - Finfish",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Anguillidae"
+    },
+    {
+      "scientificName": "Hylocereus undatus",
+      "englishName": "White Dragon Fruit",
+      "category": "Fruits - Tropical",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    }
+  ],
+  "appendixIII": [
+    {
+      "scientificName": "Meleagris ocellata",
+      "englishName": "Ocellated Turkey",
+      "category": "Livestock - Poultry",
+      "citesStatus": "III",
+      "kingdom": "Animalia",
+      "family": "Phasianidae"
+    }
+  ],
+  "allMatches": [
+    {
+      "scientificName": "Struthio camelus",
+      "englishName": "Ostrich",
+      "category": "Livestock - Poultry",
+      "citesStatus": "I",
+      "kingdom": "Animalia",
+      "family": "Struthionidae"
+    },
+    {
+      "scientificName": "Opuntia ficus-indica",
+      "englishName": "Nopal (Prickly Pear Pad)",
+      "category": "Vegetables - Fruit",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "scientificName": "Cycas revoluta",
+      "englishName": "Sago Palm",
+      "category": "Vegetables - Root",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cycadaceae"
+    },
+    {
+      "scientificName": "Vanilla planifolia",
+      "englishName": "Vanilla",
+      "category": "Herbs & Spices",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Orchidaceae"
+    },
+    {
+      "scientificName": "Rhea americana",
+      "englishName": "Rhea",
+      "category": "Livestock - Poultry",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Rheidae"
+    },
+    {
+      "scientificName": "Anguilla anguilla",
+      "englishName": "Anguila",
+      "category": "Seafood - Finfish",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Anguillidae"
+    },
+    {
+      "scientificName": "Hylocereus undatus",
+      "englishName": "White Dragon Fruit",
+      "category": "Fruits - Tropical",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "scientificName": "Meleagris ocellata",
+      "englishName": "Ocellated Turkey",
+      "category": "Livestock - Poultry",
+      "citesStatus": "III",
+      "kingdom": "Animalia",
+      "family": "Phasianidae"
+    }
+  ]
+}

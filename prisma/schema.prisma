@@ -1,0 +1,921 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// CORE RECIPE MODELS
+// ============================================
+
+model Recipe {
+  id              String   @id @default(cuid())
+  externalId      String?  @unique // TheMealDB ID
+  name            String
+  category        String?
+  area            String?
+  instructions    String?
+  imageUrl        String?
+  tags            String?
+  youtubeUrl      String?
+  sourceUrl       String?
+  prepTime        Int?     // in minutes
+  cookTime        Int?     // in minutes
+  servings        Int?
+  difficulty      String?  // easy, medium, hard
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  ingredients     RecipeIngredient[]
+  nutrition       NutritionInfo?
+  bioactiveInfo   RecipeBioactive[]
+  savedBy         SavedRecipe[]
+}
+
+model RecipeIngredient {
+  id          String   @id @default(cuid())
+  recipeId    String
+  name        String
+  measure     String?
+  amount      Float?
+  unit        String?
+  position    Int      @default(0)
+  
+  recipe      Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  analysis    IngredientAnalysis?
+  
+  @@unique([recipeId, position])
+  @@index([recipeId])
+}
+
+model SavedRecipe {
+  id          String   @id @default(cuid())
+  recipeId    String
+  collection  String?  @default("favorites")
+  notes       String?
+  rating      Int?
+  createdAt   DateTime @default(now())
+  
+  recipe      Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  
+  @@unique([recipeId, collection])
+}
+
+// ============================================
+// NUTRITION MODELS
+// ============================================
+
+model NutritionInfo {
+  id              String   @id @default(cuid())
+  recipeId        String   @unique
+  calories        Float
+  protein         Float    // grams
+  carbs           Float    // grams
+  fat             Float    // grams
+  fiber           Float?   // grams
+  sugar           Float?   // grams
+  sodium          Float?   // mg
+  potassium       Float?   // mg
+  calcium         Float?   // mg
+  iron            Float?   // mg
+  vitaminC        Float?   // mg
+  vitaminA        Float?   // IU
+  vitaminD        Float?   // IU
+  vitaminE        Float?   // mg
+  vitaminK        Float?   // mcg
+  vitaminB6       Float?   // mg
+  vitaminB12      Float?   // mcg
+  folate          Float?   // mcg
+  magnesium       Float?   // mg
+  zinc            Float?   // mg
+  phosphorus      Float?   // mg
+  saturatedFat    Float?   // grams
+  transFat        Float?   // grams
+  cholesterol     Float?   // mg
+  source          String?  // USDA, estimation, etc.
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  recipe          Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+// ============================================
+// BIOACTIVE COMPOUNDS MODELS
+// ============================================
+
+model BioactiveCompound {
+  id                  String   @id @default(cuid())
+  name                String
+  scientificName      String?
+  commonNames         String?  // JSON array
+  chemicalClass       String?
+  molecularFormula    String?
+  description         String?
+  descriptionEs       String?
+  source              String?  // PhytoHub, NIH ODS, Manual
+  
+  // Relationships
+  effects             HealthEffect[]
+  warnings            BioactiveWarning[]
+  interactions        BioactiveInteraction[]
+  foodSources         FoodSource[]
+  dosageInfo          DoseRange[]
+  toxicityData        ToxicityData[]
+  productIngredients  ProductIngredient[]
+  recipeAnalysis      RecipeBioactive[]
+  ingredientMatches   IngredientAnalysis[]
+  
+  @@index([name])
+}
+
+model HealthEffect {
+  id              String   @id @default(cuid())
+  compoundId      String
+  effectType      String   // benefit, prevention, modulation
+  description     String
+  descriptionEs   String?
+  mechanism       String?
+  evidenceLevel   String   // strong, moderate, limited, insufficient
+  healthSystem    String?  // CV, IM, MS, DG, NS, EN, SK, BO, GE
+  icd11Code       String?
+  onsetTime       String?  // immediate, 2-4 weeks, 6-8 weeks
+  duration        String?  // chronic, acute, maintenance
+  studiesCount    Int      @default(0)
+  source          String?
+  createdAt       DateTime @default(now())
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+  @@index([effectType])
+  @@index([healthSystem])
+}
+
+model BioactiveWarning {
+  id              String   @id @default(cuid())
+  compoundId      String
+  severity        String   // mild, moderate, severe, critical
+  condition       String   // hepatica, renal, gastrointestinal, etc.
+  description     String
+  descriptionEs   String?
+  dosage          String?
+  population      String?  // children, elderly, pregnant, liver disease
+  regulatoryStatus String?
+  duration        String?  // long-term, acute, pregnancy
+  source          String?
+  createdAt       DateTime @default(now())
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+  @@index([severity])
+}
+
+model BioactiveInteraction {
+  id              String   @id @default(cuid())
+  compoundId      String
+  targetName      String   // drug name, food, or other compound
+  targetType      String   // drug, food, bioactive
+  interactionType String?  // CYP450 inhibition, MAOI, etc.
+  severity        String   // mild, moderate, severe
+  description     String
+  descriptionEs   String?
+  mechanism       String?
+  evidence        String?  // case report, clinical study, in vitro
+  onset           String?  // immediate, delayed, cumulative
+  management      String?
+  source          String?
+  createdAt       DateTime @default(now())
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+  @@index([targetName])
+}
+
+model FoodSource {
+  id              String   @id @default(cuid())
+  compoundId      String
+  foodName        String
+  foodNameEs      String?
+  concentration   Float?   // mg per 100g or per serving
+  servingSize     String?
+  servingAmount   Float?
+  servingUnit     String?
+  notes           String?
+  source          String?
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+  @@index([foodName])
+}
+
+model DoseRange {
+  id              String   @id @default(cuid())
+  compoundId      String
+  purpose         String   // beneficial, therapeutic, preventive
+  minDose         Float?   // mg
+  maxDose         Float?   // mg
+  unit            String   @default("mg")
+  frequency       String?  // daily, weekly
+  evidenceLevel   String?
+  population      String?
+  notes           String?
+  source          String?
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+}
+
+model ToxicityData {
+  id              String   @id @default(cuid())
+  compoundId      String
+  endpoint        String   // LD50, NOAEL, LOAEL, ADI, RfD
+  value           Float
+  unit            String
+  species         String?
+  route           String?  // oral, intravenous
+  duration        String?  // acute, subchronic, chronic
+  source          String?  // EPA CompTox ID, etc.
+  sourceId        String?  // DTXSID, PMID, etc.
+  notes           String?
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+  @@index([endpoint])
+}
+
+model ProductIngredient {
+  id              String   @id @default(cuid())
+  compoundId      String
+  productName     String
+  brandName       String?
+  dosePerServing  Float?
+  unit            String?
+  servingsPerContainer Int?
+  productType     String?  // capsule, tablet, powder, liquid
+  source          String?  // DSLD ID
+  
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  
+  @@index([compoundId])
+}
+
+// ============================================
+// RECIPE-INGREDIENT BIOACTIVE ANALYSIS
+// ============================================
+
+model IngredientAnalysis {
+  id                      String   @id @default(cuid())
+  recipeIngredientId      String   @unique
+  matchedCompoundId       String?
+  matchConfidence         Float?   // 0-1
+  estimatedAmount         Float?   // mg
+  notes                   String?
+  createdAt               DateTime @default(now())
+  
+  recipeIngredient        RecipeIngredient @relation(fields: [recipeIngredientId], references: [id], onDelete: Cascade)
+  matchedCompound         BioactiveCompound? @relation(fields: [matchedCompoundId], references: [id])
+}
+
+model RecipeBioactive {
+  id              String   @id @default(cuid())
+  recipeId        String
+  compoundId      String
+  estimatedAmount Float?   // mg per serving
+  contribution    Float?   // percentage of beneficial dose
+  
+  recipe          Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  compound        BioactiveCompound @relation(fields: [compoundId], references: [id])
+  
+  @@unique([recipeId, compoundId])
+  @@index([recipeId])
+}
+
+// ============================================
+// USER PREFERENCES
+// ============================================
+
+model UserPreference {
+  id              String   @id @default(cuid())
+  language        String   @default("en")
+  theme           String   @default("dark")
+  weightKg        Float?
+  weightUnit      String?  // range, exact, skip
+  technicalMode   Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================
+// MEXICAN NUTRITION DATABASE (SIAgro CONABIO)
+// ============================================
+
+model MexicanFood {
+  id                    String   @id @default(cuid())
+  conabioId             Int      @unique
+  claveOriginal         String?
+  tipoAlimento          String?  // Spanish food type category
+  foodType              String?  // English food type category
+  
+  // Names - Column 5 contains "Spanish Name - English Name" format
+  // May include descriptors like "Ajo molido", "Ajo rostizado"
+  nombreEspanol         String   // Parsed Spanish name (with descriptor)
+  nombreIngles          String?  // Parsed English name (with descriptor)
+  descripcionAlimento   String   // Original column 5 (full string)
+  foodDescription       String?  // Original column 6 (English only)
+  
+  // Parent-Child Relationship (Ingredient Hierarchy)
+  parentIngredientId    String?  // Reference to parent ingredient (null = parent or standalone)
+  descriptor            String?  // Processing form (e.g., "seco", "molido", "jugo", "harina")
+  isParent              Boolean  @default(false) // True if this is a parent ingredient
+  childCount            Int      @default(0) // Number of derived forms
+
+  // Base name without descriptor (for matching)
+  nombreBase            String?  // Base ingredient name (e.g., "Ajo" from "Ajo molido")
+
+  // Hierarchy Review Status
+  hierarchyStatus       String?  @default("pending") // pending, confirmed, rejected, needs_review
+  hierarchyNotes        String?  // User notes about the relationship
+  hierarchyReviewedBy   String?  // User who reviewed
+  hierarchyReviewedAt   DateTime?
+
+  // Self-referential relation for parent-child
+  parent                MexicanFood?  @relation("IngredientHierarchy", fields: [parentIngredientId], references: [id], onDelete: SetNull)
+  children              MexicanFood[] @relation("IngredientHierarchy")
+  
+  procedencia           String?  // Region/state of sample (not displayed to user)
+  taxonId               String?
+  taxon                 String?  // Scientific name
+  scientificNameNotNeeded Boolean @default(false) // True for processed/derived items that don't need scientific name (e.g., whey, cream)
+  
+  // Conservation and Regulatory Status
+  // Stores structured data about endangered species status, trade restrictions, etc.
+  // JSON structure: {
+  //   citesStatus: 'I' | 'II' | 'III' | 'not_listed' | 'unknown',
+  //   iucnCategory: 'EX' | 'EW' | 'CR' | 'EN' | 'VU' | 'NT' | 'LC' | 'DD' | 'NE',
+  //   regionalStatus: string (e.g., 'NOM-059: Amenazada'),
+  //   riskLevel: 'critical' | 'high' | 'moderate' | 'low' | 'stable' | 'unknown',
+  //   tradeRestricted: boolean,
+  //   seasonalRestrictions: string[],
+  //   lastAssessed: string (date),
+  //   sources: string[]
+  // }
+  conservationStatus    String?  // JSON object with conservation/regulatory status
+  
+  // General notes for both parents and children
+  // Can include: alternative ingredients, sustainability notes, preparation tips, etc.
+  notes                 String?
+  
+  categoria             String?
+  estatus               String?
+  fuente                String?
+  nombreAutoridad       String?
+  
+  // Fatty Acids (g unless noted)
+  acidoAscorbico        Float?   // Vitamin C (mg)
+  acidoLaurico          Float?
+  acidoAraquidico       Float?
+  acidoAspartico        Float?
+  acidoBehenico         Float?
+  acidoButirico         Float?
+  acidoCaprico          Float?
+  acidoCaprilico        Float?
+  acidoCaproico         Float?
+  acidoCis10Heptadecanoico Float?
+  acidoCis11Eicosenoico Float?
+  acidoCis1114Eicosatrienoico Float?
+  acidoCis111417Eicosatrienoico Float?
+  acidoElaidico         Float?
+  acidoEsteaico         Float?
+  acidoGlutamico        Float?
+  acidoHeneicosanoico   Float?
+  acidoHeptadecanoico   Float?
+  acidoLignocerico      Float?
+  acidoLinoleico        Float?
+  acidoLinolenico       Float?
+  acidoMiristico        Float?
+  acidoOleico           Float?
+  acidoPalmitico        Float?
+  acidoPalmitoleico     Float?
+  acidoPentadecanoico   Float?
+  acidoTricosanoico     Float?
+  acidoUndecanoico      Float?
+  acidoYLinolenico      Float?
+  acidosGrasosSaturados Float?
+  
+  // Amino Acids
+  alanina               Float?
+  almidon               Float?   // Starch
+  aminoacidosAromaticos Float?
+  aminoacidosAzufrados  Float?
+  arginina              Float?
+  azucares              Float?   // Sugars
+  betaCarotenos         Float?
+  calcio                Float?   // Calcium (mg)
+  carotenos             Float?
+  cenizas               Float?   // Ash
+  cisteina              Float?
+  cobre                 Float?   // Copper (mg)
+  colesterol            Float?   // Cholesterol (mg)
+  energia               Float?   // Energy (kcal)
+  extractoEtereo        Float?   // Ether extract / Fat
+  fenilalanina          Float?
+  fibraBruta            Float?
+  fibraDietariaInsoluble Float?
+  fibraDietariaTotal    Float?
+  fosforo               Float?   // Phosphorus (mg)
+  glicina               Float?
+  hidratosCarbono       Float?   // Carbohydrates
+  hierro                Float?   // Iron (mg)
+  histidina             Float?
+  humedad               Float?   // Moisture
+  isoleucina            Float?
+  lactosa               Float?
+  leucina               Float?
+  lisina                Float?
+  litio                 Float?   // Lithium
+  magnesio              Float?   // Magnesium (mg)
+  manganeso             Float?   // Manganese (mg)
+  metionina             Float?
+  niacina               Float?   // Vitamin B3 (mg)
+  polisacaridosNoAmilaceosInsolubles Float?
+  polisacaridosNoAmilaceosTotales Float?
+  porcionComestible     Float?   // Edible portion (%)
+  potasio               Float?   // Potassium (mg)
+  prolina               Float?
+  proteinaBruta         Float?   // Crude protein
+  riboflavina           Float?   // Vitamin B2 (mg)
+  selenio               Float?   // Selenium
+  serina                Float?
+  sodio                 Float?   // Sodium (mg)
+  tiamina               Float?   // Vitamin B1 (mg)
+  tirosina              Float?
+  treonina              Float?
+  triptofano            Float?
+  valina                Float?
+  vitaminaA             Float?   // Vitamin A (IU)
+  zinc                  Float?   // Zinc (mg)
+  
+  // Metadata for duplicate handling
+  nutrientScore         Int      @default(0) // Count of filled nutrient columns
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([nombreEspanol])
+  @@index([nombreIngles])
+  @@index([descripcionAlimento])
+  @@index([foodDescription])
+  @@index([tipoAlimento])
+  @@index([parentIngredientId])
+  @@index([nombreBase])
+  @@index([isParent])
+  @@index([descriptor])
+  @@index([hierarchyStatus])
+}
+
+// ============================================
+// HIERARCHY AUDIT LOG
+// ============================================
+
+model HierarchyAuditLog {
+  id              String   @id @default(cuid())
+  
+  // What was changed
+  itemId          String   // MexicanFood id that was changed
+  itemName        String   // MexicanFood nombreEspanol for display
+  
+  // Type of change
+  action          String   // confirm_parent, confirm_child, reject_child, reassign_child, set_standalone, confirm_all, reject_multiple
+  
+  // Before state
+  oldParentId     String?
+  oldParentName   String?
+  oldStatus       String?
+  oldNotes        String?
+  
+  // After state
+  newParentId     String?
+  newParentName   String?
+  newStatus       String?
+  newNotes        String?
+  
+  // Metadata
+  reviewedBy      String?  // User who made the change
+  reason          String?  // Reason for change
+  createdAt       DateTime @default(now())
+  
+  @@index([itemId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// ============================================
+// PHYTOHUB DATABASE (Phytochemicals)
+// ============================================
+
+model PhytoHubCompound {
+  id                    String   @id @default(cuid())
+  phytoHubId            String?  @unique // "Identifier" from PhytoHub
+  primaryKey            String?  // "Primary key" from PhytoHub
+  
+  // Basic Information
+  name                  String   // "Chemical Name" - Common name
+  systematicName        String?  // "Systematic name" - IUPAC systematic name
+  iupacName             String?  // "IUPAC Name" - Another IUPAC field
+  
+  // Classification - for parent compounds
+  phytochemicalFamily   String?  // "Phytochemical family"
+  chemicalClass         String?  // "Phytochemical class"
+  subClass              String?  // "Phytochemical subclass"
+  
+  // Classification - for metabolites
+  metaboliteFamily      String?  // "Metabolite family"
+  metaboliteClass       String?  // "Metabolite class"
+  metaboliteSubclass    String?  // "Metabolite subclass"
+  isMetabolite          Boolean  @default(false) // Derived from metabolite class fields
+  
+  // Names and identifiers
+  synonyms              String?  // JSON array of "Synonyms"
+  
+  // Chemical Properties
+  molecularFormula      String?  // "Formula"
+  monoisotopicMass      Float?   // "Monoisotopic mass"
+  averageMass           Float?   // "Average mass"
+  smiles                String?  // "Smiles" notation
+  inchi                 String?  // "Inchi" string
+  inchiKey              String?  @unique // "InChI Key"
+  casNumber             String?  // "CAS Number"
+  
+  // Bioavailability Properties
+  solubility            Float?   // "Solubility" (mg/mL or similar)
+  solubilityUnit        String?  @default("mg/mL")
+  predictedLogP         Float?   // "Predicted alogps logp" - lipophilicity
+  predictedLogS         Float?   // "Predicted alogps logs" - solubility prediction
+  pkaBasic              Float?   // "Pka strongest basic"
+  pkaAcidic             Float?   // "Pka strongest acidic"
+  
+  // Food Sources (JSON array)
+  // Each entry: { name: string, concentration?: number, unit?: string }
+  foodSources           String?  // JSON array from "Food sources" (separated by "/")
+  
+  // Metabolites (JSON array of metabolite names/IDs)
+  metabolites           String?  // JSON array from "Metabolites / Precursor"
+  
+  // Intake Biomarkers
+  intakeBiomarkers      String?  // JSON array from "Intake biomarkers"
+  
+  // Health Information (not in current export)
+  healthEffects         String?  // JSON array of health benefits
+  mechanisms            String?  // JSON array of mechanisms of action
+  targetSystems         String?  // JSON array: CV, IM, MS, DG, NS, EN, SK, etc.
+  
+  // Safety Information (not in current export)
+  toxicityData          String?  // JSON array of toxicity endpoints
+  interactions          String?  // JSON array of drug/food interactions
+  contraindications     String?  // JSON array
+  pregnancySafety       String?  // safe, caution, avoid, unknown
+  
+  // Dosage Information (not in current export)
+  beneficialDose        Float?   // mg
+  beneficialDoseUnit    String?  @default("mg")
+  therapeuticDose       Float?
+  therapeuticDoseUnit   String?  @default("mg")
+  upperLimit            Float?
+  upperLimitUnit        String?  @default("mg")
+  
+  // References
+  references            String?  // JSON array of PMID, DOI, etc.
+  phytoHubUrl           String?
+  
+  // Metadata
+  dataQuality           Int      @default(0) // 0-100 score
+  lastUpdated           String?  // Date from PhytoHub
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([name])
+  @@index([chemicalClass])
+  @@index([phytochemicalFamily])
+  @@index([inchiKey])
+  @@index([isMetabolite])
+}
+
+// ============================================
+// PHYTOHUB FOOD SOURCES (Normalized)
+// ============================================
+
+model PhytoHubFood {
+  id                    String   @id @default(cuid())
+  name                  String   // Food name from PhytoHub
+  nameEs                String?  // Spanish translation
+  foodGroup             String?  // Fruit, Vegetable, Herb, etc.
+  
+  // Compounds found in this food (JSON array of compound IDs)
+  compoundIds           String?  // JSON array
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([name])
+  @@index([foodGroup])
+}
+
+// ============================================
+// EPA COMPTOX TOXICITY DATA (API Cache)
+// ============================================
+
+model CompToxToxicity {
+  id                    String   @id @default(cuid())
+  
+  // EPA Identifiers
+  dtxsid                String   @unique // EPA DSSTox Substance ID
+  dtxcid                String?  // EPA DSSTox Chemical ID
+  
+  // Chemical Identifiers (for cross-reference)
+  inchiKey              String?  @unique // Matches PhytoHubCompound.inchiKey
+  casrn                 String?  // CAS Registry Number
+  iupacName             String?  // Systematic IUPAC name
+  preferredName         String?  // EPA preferred name
+  synonyms              String?  // JSON array of synonyms
+  
+  // Toxicity Values (from ToxRefDB, etc.)
+  ld50Oral              Float?   // mg/kg - Acute oral toxicity
+  ld50OralSpecies       String?  // Species tested
+  ld50Dermal            Float?   // mg/kg - Acute dermal toxicity
+  ld50DermalSpecies     String?
+  ld50Inhalation        Float?   // mg/L - Acute inhalation toxicity
+  ld50InhalationSpecies String?
+  
+  // Subchronic/Chronic Toxicity
+  noael                 Float?   // mg/kg/day - No Observed Adverse Effect Level
+  noaelSpecies          String?
+  noaelDuration         String?  // e.g., "90-day", "2-year"
+  loael                 Float?   // mg/kg/day - Lowest Observed Adverse Effect Level
+  loaelSpecies          String?
+  loaelDuration         String?
+  
+  // Reference Doses (EPA IRIS)
+  rfd                   Float?   // mg/kg/day - Reference Dose
+  rfc                   Float?   // mg/m³ - Reference Concentration
+  adi                   Float?   // mg/kg/day - Acceptable Daily Intake
+  
+  // Hazard Classifications
+  ghsHazardCategories   String?  // JSON array: ["Acute Tox. 4", "Skin Irrit. 2"]
+  ghsSignalWord         String?  // "Danger", "Warning", or null
+  ghsPictograms         String?  // JSON array: ["skull", "flame", "exclamation"]
+  
+  // Cancer Classifications
+  irisCancerClass       String?  // EPA IRIS: "Carcinogenic", "Likely", etc.
+  iarcGroup             String?  // IARC: "1", "2A", "2B", "3", "4"
+  ntpCancerStatus       String?  // NTP: "Known", "Reasonably anticipated"
+  
+  // ToxCast/Tox21 Bioassay Data
+  toxCastActiveAssays   Int?     // Number of active assays
+  toxCastTotalAssays    Int?     // Total assays tested
+  toxCastSummary        String?  // JSON: {endpoint: count}
+  
+  // Exposure Predictions
+  exposurePrediction    Float?   // Predicted exposure level
+  exposureUnit          String?
+  
+  // Warnings and Alerts
+  hazardStatements      String?  // JSON array of GHS H-statements
+  precautionStatements  String?  // JSON array of GHS P-statements
+  specialWarnings       String?  // JSON array of additional warnings
+  
+  // Data Sources
+  sources               String?  // JSON array: ["IRIS", "ToxRefDB", "ToxCast"]
+  
+  // Metadata
+  lastApiFetch          DateTime @default(now())
+  dataVersion           String?  // EPA data version
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([inchiKey])
+  @@index([casrn])
+  @@index([dtxsid])
+}
+
+// ============================================
+// EFSA OPENFOODTOX DATA (Imported)
+// ============================================
+
+model EFSAToxicity {
+  id                    String   @id @default(cuid())
+  
+  // EFSA Identifiers
+  efsaSubstanceId       String?  @unique
+  substanceName         String   // Chemical name from EFSA
+  
+  // Chemical Identifiers (for cross-reference)
+  casNumber             String?  // CAS Registry Number
+  inchiKey              String?
+  echaId                String?  // ECHA identifier
+  
+  // Health-Based Guidance Values (Human)
+  hbgvChronic           Float?   // mg/kg bw/day
+  hbgvChronicType       String?  // ADI, TDI, PTWI, etc.
+  hbgvAcute             Float?   // mg/kg bw
+  hbgvAcuteType         String?  // ARfD, etc.
+  
+  // Reference Points (for deriving HBGV)
+  referencePoint        Float?   // NOAEL, LOAEL, BMDL, etc.
+  referencePointType    String?  // Type of reference point
+  referencePointUnit    String?
+  referencePointSpecies String?
+  uncertaintyFactor     Int?     // Safety/uncertainty factor applied
+  
+  // Study Details
+  studyType             String?  // Chronic, subchronic, acute
+  studyDuration         String?
+  speciesStudied        String?
+  routeAdministration   String?
+  criticalEffect        String?  // Critical effect observed
+  
+  // Population-Specific Values
+  hbgvAdults            Float?
+  hbgvChildren          Float?
+  hbgvInfants           Float?
+  hbgvPregnancy         Float?
+  
+  // Upper Limits
+  ul                    Float?   // Tolerable Upper Intake Level
+  ulUnit                String?  @default("mg/day")
+  ulPopulation          String?  // Target population
+  
+  // EFSA Opinion Reference
+  efsaOpinionYear       Int?
+  efsaOpinionUrl        String?
+  efsaJournalRef        String?
+  
+  // Classification
+  substanceGroup        String?  // Pesticide, additive, nutrient, etc.
+  regulatoryStatus      String?  // Approved, withdrawn, pending
+  
+  // Warnings
+  healthConcerns        String?  // JSON array of concerns
+  populationRisks       String?  // JSON array of at-risk populations
+  
+  // Metadata
+  importDate            DateTime @default(now())
+  dataVersion           String?
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([substanceName])
+  @@index([casNumber])
+  @@index([inchiKey])
+}
+
+// ============================================
+// TOXICITY MATCH CACHE (Links PhytoHub to Toxicity Data)
+// ============================================
+
+model ToxicityMatch {
+  id                    String   @id @default(cuid())
+  
+  // Source compound (PhytoHub)
+  phytoHubCompoundId    String?  // Link to PhytoHubCompound
+  phytoHubCompoundName  String   // Store name for quick lookup
+  
+  // Matched toxicity sources
+  comptoxId             String?  // CompToxToxicity.id
+  efsaId                String?  // EFSAToxicity.id
+  
+  // Match details
+  matchMethod           String   // 'inchikey', 'cas', 'name-fuzzy'
+  matchConfidence       Float    // 0-1
+  
+  // Cached summary for quick display
+  hasToxicityData       Boolean  @default(false)
+  hasWarnings           Boolean  @default(false)
+  warningCount          Int      @default(0)
+  hasInteractions       Boolean  @default(false)
+  interactionCount      Int      @default(0)
+  
+  // Quick access values
+  cachedLd50            Float?
+  cachedNoael           Float?
+  cachedAdi             Float?
+  cachedUl              Float?
+  cachedWarnings        String?  // JSON array of warning summaries
+  
+  // Metadata
+  verified              Boolean  @default(false)
+  lastChecked           DateTime @default(now())
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@unique([phytoHubCompoundId])
+  @@index([phytoHubCompoundName])
+  @@index([hasWarnings])
+}
+
+// ============================================
+// WORD CLASSIFICATION (For Ingredient Matching)
+// ============================================
+
+model WordClassification {
+  id                    String   @id @default(cuid())
+  word                  String   @unique // The Spanish word
+  wordLower             String   // Lowercase for matching
+  
+  // Classification
+  category              String   // core, species, part, color, processing, form, descriptor, connector, unknown
+  subcategory           String?  // Optional subcategory (e.g., "heat" for processing)
+  
+  // Priority for matching (1 = highest, 5 = lowest)
+  priority              Int      @default(3)
+  
+  // Examples of foods containing this word
+  examples              String?  // JSON array of example food names
+  
+  // Frequency in database
+  frequency             Int      @default(0)
+  
+  // User verification
+  needsReview           Boolean  @default(true) // True until user confirms
+  reviewedBy            String?  // User who reviewed
+  reviewedAt            DateTime?
+  
+  // Notes
+  notes                 String?
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([wordLower])
+  @@index([category])
+  @@index([needsReview])
+}
+
+// ============================================
+// BACKUP MANAGEMENT (File-Based)
+// Backups are stored as JSON files in /backups folder
+// Database only stores metadata for quick listing/searching
+// ============================================
+
+model BackupRecord {
+  id                    String   @id @default(cuid())
+  
+  // Backup identification
+  name                  String   // User-friendly name
+  trigger               String   // 'manual', 'hierarchy', 'taxonomy', 'conservation', 'notes', 'word_classification', 'auto'
+  triggerDescription    String?  // Description of what triggered the backup
+  
+  // File-based storage
+  filePath              String   // Path to backup file (relative to /backups folder)
+  fileName              String   // Original filename for display
+  fileSizeBytes         Int      @default(0)
+  checksum              String?  // SHA-256 checksum for integrity verification
+  
+  // Incremental backup support
+  isIncremental         Boolean  @default(false)
+  previousBackupId      String?  // Reference to previous backup this is based on
+  changesCount          Int      @default(0)
+  
+  // Data types included in this backup (for selective restore)
+  includesHierarchy     Boolean  @default(false)
+  includesTaxonomy      Boolean  @default(false)
+  includesConservation  Boolean  @default(false)
+  includesNotes         Boolean  @default(false)
+  includesWordClassifications Boolean @default(false)
+  includesAuditLogs     Boolean  @default(false)
+  includesNutrition     Boolean  @default(false)
+  includesRecipes       Boolean  @default(false)
+  includesFullSnapshot  Boolean  @default(false)
+  
+  // Statistics at time of backup
+  totalParents          Int      @default(0)
+  totalChildren         Int      @default(0)
+  totalItems            Int      @default(0)
+  pendingItems          Int      @default(0)
+  totalWordClassifications Int   @default(0)
+  
+  // Metadata
+  isAutomatic           Boolean  @default(false)
+  isDeleted             Boolean  @default(false)  // Soft delete - file may still exist
+  
+  createdAt             DateTime @default(now())
+  
+  @@index([trigger])
+  @@index([createdAt])
+  @@index([isIncremental])
+  @@index([isDeleted])
+}
