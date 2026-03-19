@@ -506,8 +506,8 @@ export function BackupManagement({ open, onOpenChange, language = 'en' }: Backup
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
-        <DialogHeader>
+      <DialogContent className="max-w-5xl h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader className="shrink-0">
           <DialogTitle className="flex items-center gap-2">
             <Archive className="w-5 h-5" />
             {t.title}
@@ -518,7 +518,7 @@ export function BackupManagement({ open, onOpenChange, language = 'en' }: Backup
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="flex-1 pr-4">
+        <ScrollArea className="flex-1 h-0 pr-4">
           <div className="space-y-6">
             {/* Message Alert */}
             {message && (

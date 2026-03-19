@@ -4,7 +4,11 @@
  * Provides web search functionality and direct API access to:
  * - IUCN Red List API (official)
  * - CITES database (via web search)
+ * 
+ * Uses z-ai-web-dev-sdk for web search functionality
  */
+
+import ZAI from 'z-ai-web-dev-sdk'
 
 interface SearchResult {
   url: string
@@ -15,19 +19,6 @@ interface SearchResult {
   date: string
   favicon: string
 }
-
-interface SearchResponse {
-  result: SearchResult[]
-}
-
-// API Configuration
-const API_BASE_URL = process.env.Z_AI_BASE_URL || 'http://172.25.136.193:8080/v1'
-const API_KEY = process.env.Z_AI_API_KEY || 'Z.ai'
-const IUCN_API_TOKEN = process.env.IUCN_API_TOKEN || ''
-
-// ============================================
-// IUCN RED LIST API (Official v4)
-// ============================================
 
 interface IucnV4Response {
   taxon: {
@@ -66,6 +57,23 @@ interface IucnV4Response {
   }>
 }
 
+// IUCN API token (optional - for direct API access)
+const IUCN_API_TOKEN = process.env.IUCN_API_TOKEN || ''
+
+// Singleton ZAI instance
+let zaiInstance: Awaited<ReturnType<typeof ZAI.create>> | null = null
+
+async function getZai() {
+  if (!zaiInstance) {
+    zaiInstance = await ZAI.create()
+  }
+  return zaiInstance
+}
+
+// ============================================
+// IUCN RED LIST API (Official v4)
+// ============================================
+
 /**
  * Look up species directly from IUCN Red List API v4
  * API Documentation: https://api.iucnredlist.org/
@@ -80,7 +88,7 @@ export async function lookupIucnSpecies(scientificName: string): Promise<{
   assessmentUrl: string | null
 }> {
   if (!IUCN_API_TOKEN) {
-    console.log('[IUCN] No API token configured')
+    console.log('[IUCN] No API token configured, will use web search fallback')
     return { 
       category: null, 
       populationTrend: null, 
@@ -244,68 +252,57 @@ export async function searchIucnByCommonName(commonName: string): Promise<{
 }
 
 // ============================================
-// WEB SEARCH (Fallback)
+// WEB SEARCH (Using z-ai-web-dev-sdk)
 // ============================================
 
 /**
- * Perform a web search using the Z-AI API
+ * Perform a web search using the z-ai-web-dev-sdk
  */
 export async function webSearch(query: string, numResults: number = 10): Promise<SearchResult[]> {
-  const url = `${API_BASE_URL}/functions/invoke`
-  
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Token': API_KEY,
-      'X-Z-AI-From': 'Z',
-    },
-    body: JSON.stringify({
-      function_name: 'web_search',
-      args: {
-        query,
-        num: numResults
-      }
+  try {
+    const zai = await getZai()
+    
+    const results = await zai.functions.invoke('web_search', {
+      query: query,
+      num: numResults
     })
-  })
 
-  if (!response.ok) {
-    const errorText = await response.text()
-    throw new Error(`Web search failed: ${response.status} - ${errorText}`)
+    // Map the SDK response to our SearchResult format
+    if (Array.isArray(results)) {
+      return results.map((item: any) => ({
+        url: item.url || '',
+        name: item.name || '',
+        snippet: item.snippet || '',
+        host_name: item.host_name || '',
+        rank: item.rank || 0,
+        date: item.date || '',
+        favicon: item.favicon || ''
+      }))
+    }
+    
+    return []
+  } catch (error) {
+    console.error('[Web Search] Error:', error)
+    return []
   }
-
-  const data: SearchResponse = await response.json()
-  return data.result || []
 }
 
 /**
  * Read a web page and extract content
  */
 export async function readWebPage(url: string): Promise<any> {
-  const apiUrl = `${API_BASE_URL}/functions/invoke`
-  
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Token': API_KEY,
-      'X-Z-AI-From': 'Z',
-    },
-    body: JSON.stringify({
-      function_name: 'page_reader',
-      args: {
-        url
-      }
+  try {
+    const zai = await getZai()
+    
+    const result = await zai.functions.invoke('page_reader', {
+      url
     })
-  })
 
-  if (!response.ok) {
-    const errorText = await response.text()
-    throw new Error(`Page read failed: ${response.status} - ${errorText}`)
+    return result
+  } catch (error) {
+    console.error('[Page Reader] Error:', error)
+    return null
   }
-
-  const data = await response.json()
-  return data.result
 }
 
 // ============================================
@@ -317,7 +314,7 @@ export async function readWebPage(url: string): Promise<any> {
  * First tries the official API, then falls back to web search
  */
 export async function searchIucn(scientificName: string): Promise<{ category: string | null; source: string }> {
-  // Try official API first
+  // Try official API first (if token configured)
   const apiResult = await lookupIucnSpecies(scientificName)
   
   if (apiResult.category) {
@@ -327,8 +324,9 @@ export async function searchIucn(scientificName: string): Promise<{ category: st
     }
   }
 
-  // Fallback to web search (if API fails or token not configured)
+  // Fallback to web search
   try {
+    console.log(`[IUCN] Web search fallback for: ${scientificName}`)
     const results = await webSearch(`site:iucnredlist.org "${scientificName}" status`, 5)
     
     for (const result of results) {
@@ -336,6 +334,7 @@ export async function searchIucn(scientificName: string): Promise<{ category: st
       const category = mapIucnCategory(snippet)
       
       if (category) {
+        console.log(`[IUCN] Found via web search: ${scientificName} -> ${category}`)
         return { category, source: result.url || 'IUCN Red List (web)' }
       }
     }
@@ -360,6 +359,7 @@ export async function searchIucn(scientificName: string): Promise<{ category: st
  */
 export async function searchCites(scientificName: string): Promise<{ status: string | null; source: string }> {
   try {
+    console.log(`[CITES] Web search for: ${scientificName}`)
     const results = await webSearch(`site:speciesplus.net OR site:cites.org "${scientificName}" appendix`, 5)
     
     for (const result of results) {

@@ -81,6 +81,8 @@ export async function GET(request: NextRequest) {
       childCount: number
       tipoAlimento: string | null
       taxon: string | null
+      conservationStatus: string | null
+      notes: string | null
     }>()
 
     for (const item of singleWordCandidates) {
@@ -93,6 +95,10 @@ export async function GET(request: NextRequest) {
         existing.childCount += item.childCount
         // Keep taxon if available
         if (item.taxon && !existing.taxon) existing.taxon = item.taxon
+        // Keep conservationStatus if available
+        if (item.conservationStatus && !existing.conservationStatus) existing.conservationStatus = item.conservationStatus
+        // Keep notes if available
+        if (item.notes && !existing.notes) existing.notes = item.notes
       } else {
         candidateMap.set(wordLower, {
           word: item.nombreEspanol,
@@ -101,7 +107,9 @@ export async function GET(request: NextRequest) {
           isParent: item.isParent,
           childCount: item.childCount,
           tipoAlimento: item.tipoAlimento,
-          taxon: item.taxon
+          taxon: item.taxon,
+          conservationStatus: item.conservationStatus,
+          notes: item.notes
         })
       }
     }
@@ -250,6 +258,8 @@ export async function GET(request: NextRequest) {
         currentChildren: candidate.childCount,
         tipoAlimento: candidate.tipoAlimento,
         taxon: candidate.taxon,
+        conservationStatus: candidate.conservationStatus,
+        notes: candidate.notes,
         isComplete,
         childrenWithoutScientificName,
         childrenWithUnknownWords

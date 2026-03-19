@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
   SelectContent,
@@ -530,6 +531,12 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
       setShowGlobalSelector(false)
       setSelectedGlobalItem(null)
       
+      // Clear editing states when switching parents
+      setEditingConservationStatus(null)
+      setConservationForm({})
+      setEditingNotes(null)
+      setNotesInput('')
+      
       // Auto-check conservation status for parent if it has taxon but no status
       if (selectedParent.taxon && !selectedParent.conservationStatus) {
         fetch(`/api/conservation-status?itemId=${selectedParent.itemId}`)
@@ -870,6 +877,10 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
         setParentCandidates(prev => prev.map(p =>
           p.itemId === itemId ? { ...p, conservationStatus: JSON.stringify(status) } : p
         ))
+        // Update selected parent if applicable
+        setSelectedParent(prev => 
+          prev?.itemId === itemId ? { ...prev, conservationStatus: JSON.stringify(status) } : prev
+        )
         setSuccessMessage('Conservation status updated')
         setTimeout(() => setSuccessMessage(null), 3000)
         setEditingConservationStatus(null)
@@ -905,6 +916,10 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
         setParentCandidates(prev => prev.map(p =>
           p.itemId === itemId ? { ...p, notes } : p
         ))
+        // Update selected parent if applicable
+        setSelectedParent(prev => 
+          prev?.itemId === itemId ? { ...prev, notes } : prev
+        )
         setSuccessMessage('Notes updated')
         setTimeout(() => setSuccessMessage(null), 3000)
         setEditingNotes(null)
@@ -1626,7 +1641,7 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                         )}
 
                         {/* Confirm as parent button */}
-                        {!candidate.isParent && candidate.potentialChildren > 0 && (
+                        {!candidate.isParent && (
                           <Button
                             variant="ghost"
                             size="sm"
@@ -1636,7 +1651,7 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                               setAsParent(candidate)
                             }}
                             disabled={actionLoading === candidate.word}
-                            title="Confirm as Parent"
+                            title={candidate.potentialChildren > 0 ? "Confirm as Parent" : "Confirm as Standalone Parent"}
                           >
                             {actionLoading === candidate.word ? (
                               <Loader2 className="h-3 w-3 animate-spin" />
@@ -1717,7 +1732,11 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                       </span>
                     )}
                     {children.length === 0 && (
-                      <span className="text-muted-foreground">No children found</span>
+                      <span className="text-muted-foreground">
+                        {selectedParent.isParent 
+                          ? 'Standalone parent (no children)' 
+                          : 'No children found - can be confirmed as standalone parent'}
+                      </span>
                     )}
                     <Button
                       variant="ghost"
@@ -1751,7 +1770,7 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                       <Microscope className="h-3 w-3 mr-1" />
                       {(selectedParent.taxon || selectedParent.scientificName) ? 'Change' : '+ Taxon'}
                     </Button>
-                    {!selectedParent.isParent && selectedParent.potentialChildren > 0 && (
+                    {!selectedParent.isParent && (
                       <Button
                         size="sm"
                         onClick={() => setAsParent(selectedParent, selectedGlobalItem?.scientificName || customScientificName || undefined)}
@@ -1763,7 +1782,7 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                         ) : (
                           <CheckCircle2 className="h-3 w-3 mr-1" />
                         )}
-                        Confirm as Parent
+                        {selectedParent.potentialChildren > 0 ? 'Confirm as Parent' : 'Confirm as Standalone Parent'}
                       </Button>
                     )}
                     {/* Demote button for confirmed parents */}
@@ -1878,6 +1897,329 @@ export function IngredientClassificationWorkspace({ onClose }: IngredientClassif
                     </div>
                   </div>
                 )}
+
+                {/* Parent Conservation Status Section */}
+                <div className="mt-2 pt-2 border-t">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                      <ShieldAlert className="h-3 w-3" />
+                      Conservation Status:
+                    </span>
+                    {(() => {
+                      const status = parseConservationStatus(selectedParent.conservationStatus)
+                      if (status && hasConservationConcerns(status)) {
+                        const riskInfo = getRiskLevelInfo(status.riskLevel)
+                        return (
+                          <Badge className={`${riskInfo.bgColor} ${riskInfo.color} text-[10px] h-4 border`}>
+                            {riskInfo.icon} {riskInfo.label}
+                          </Badge>
+                        )
+                      }
+                      return null
+                    })()}
+                  </div>
+                  
+                  {/* Display current status with match type info */}
+                  {selectedParent.conservationStatus && (
+                    <div className="mb-2">
+                      {(() => {
+                        const status = parseConservationStatus(selectedParent.conservationStatus)
+                        if (status && status.riskLevel !== 'unknown') {
+                          const iucnInfo = getIucnCategoryInfo(status.iucnCategory)
+                          const citesInfo = getCitesStatusInfo(status.citesStatus)
+                          return (
+                            <div className="space-y-1.5">
+                              {/* Match type indicator */}
+                              {status.matchType && (
+                                <div className="flex items-center gap-1 flex-wrap">
+                                  {status.matchType === 'exact' && (
+                                    <Badge className="bg-green-100 text-green-700 text-[9px] h-4 border border-green-200">
+                                      ✓ Exact match
+                                    </Badge>
+                                  )}
+                                  {status.matchType === 'genus_inference' && (
+                                    <Badge className="bg-amber-100 text-amber-700 text-[9px] h-4 border border-amber-200">
+                                      ⚠️ Genus match
+                                    </Badge>
+                                  )}
+                                  {status.matchType === 'web_search' && (
+                                    <Badge className="bg-blue-100 text-blue-700 text-[9px] h-4 border border-blue-200">
+                                      🔍 Web search
+                                    </Badge>
+                                  )}
+                                  {status.needsVerification && (
+                                    <Badge className="bg-red-100 text-red-700 text-[9px] h-4 border border-red-200">
+                                      Needs verification
+                                    </Badge>
+                                  )}
+                                </div>
+                              )}
+                              {/* Matched species info */}
+                              {status.matchType === 'genus_inference' && status.matchedSpecies && (
+                                <p className="text-[10px] text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded">
+                                  Matched against related species: <em>{status.matchedSpecies}</em>
+                                </p>
+                              )}
+                              {/* Status badges */}
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/30 px-2 py-1 rounded flex-wrap">
+                                {status.iucnCategory && (
+                                  <span className={iucnInfo.color}>IUCN: {status.iucnCategory}</span>
+                                )}
+                                {status.citesStatus && status.citesStatus !== 'not_listed' && (
+                                  <span className={citesInfo.color}>CITES: {citesInfo.label}</span>
+                                )}
+                                {status.regionalStatus && (
+                                  <span className="text-purple-600">{status.regionalStatus}</span>
+                                )}
+                              </div>
+                            </div>
+                          )
+                        }
+                        return null
+                      })()}
+                    </div>
+                  )}
+                  
+                  {editingConservationStatus === selectedParent.itemId ? (
+                    <div className="p-2 border rounded bg-muted/30 space-y-2">
+                      {/* Match Type Warning - show if genus inference */}
+                      {(() => {
+                        const status = parseConservationStatus(selectedParent.conservationStatus)
+                        if (status?.matchType === 'genus_inference') {
+                          return (
+                            <div className="flex items-start gap-2 p-2 bg-amber-50 dark:bg-amber-900/20 rounded text-amber-700 dark:text-amber-300 text-[10px]">
+                              <AlertTriangle className="h-3 w-3 flex-shrink-0 mt-0.5" />
+                              <div>
+                                <strong>⚠️ Genus-level match - needs verification!</strong>
+                                {status.matchedSpecies && (
+                                  <p className="mt-0.5">Matched against related species: <em>{status.matchedSpecies}</em></p>
+                                )}
+                                <p className="mt-0.5 text-amber-600">Different species in the same genus can have very different statuses. Please verify manually.</p>
+                              </div>
+                            </div>
+                          )
+                        }
+                        return null
+                      })()}
+                      
+                      {/* Risk Level */}
+                      <div>
+                        <label className="text-[10px] text-muted-foreground">Risk Level:</label>
+                        <Select
+                          value={conservationForm.riskLevel || 'unknown'}
+                          onValueChange={(v) => setConservationForm(prev => ({ ...prev, riskLevel: v as any }))}
+                        >
+                          <SelectTrigger className="h-6 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {RISK_LEVELS.map(level => (
+                              <SelectItem key={level.value} value={level.value}>
+                                <span className={level.color}>{level.icon}</span> {level.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      {/* CITES Status */}
+                      <div>
+                        <label className="text-[10px] text-muted-foreground">CITES Status:</label>
+                        <Select
+                          value={conservationForm.citesStatus || 'unknown'}
+                          onValueChange={(v) => setConservationForm(prev => ({ ...prev, citesStatus: v as any }))}
+                        >
+                          <SelectTrigger className="h-6 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {CITES_STATUS_OPTIONS.map(opt => (
+                              <SelectItem key={opt.value} value={opt.value}>
+                                <span className={opt.color}>{opt.value}</span> - {opt.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      {/* IUCN Category */}
+                      <div>
+                        <label className="text-[10px] text-muted-foreground">IUCN Category:</label>
+                        <Select
+                          value={conservationForm.iucnCategory || 'NE'}
+                          onValueChange={(v) => setConservationForm(prev => ({ ...prev, iucnCategory: v as any }))}
+                        >
+                          <SelectTrigger className="h-6 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {IUCN_CATEGORIES.map(cat => (
+                              <SelectItem key={cat.value} value={cat.value}>
+                                <span className={cat.color}>{cat.value}</span> - {cat.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      {/* Regional Status */}
+                      <div>
+                        <label className="text-[10px] text-muted-foreground">Regional Status (e.g., NOM-059):</label>
+                        <Input
+                          placeholder="NOM-059: Amenazada"
+                          value={conservationForm.regionalStatus || ''}
+                          onChange={(e) => setConservationForm(prev => ({ ...prev, regionalStatus: e.target.value }))}
+                          className="h-6 text-xs"
+                        />
+                      </div>
+                      
+                      {/* Trade Restricted */}
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          checked={conservationForm.tradeRestricted || false}
+                          onCheckedChange={(checked) => setConservationForm(prev => ({ ...prev, tradeRestricted: !!checked }))}
+                        />
+                        <label className="text-[10px]">Trade Restricted/Controlled</label>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex justify-end gap-1 pt-1">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            setEditingConservationStatus(null)
+                            setConservationForm({})
+                          }}
+                          className="h-6 text-xs"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => saveConservationStatus(selectedParent.itemId, conservationForm)}
+                          disabled={actionLoading === 'conservation-status'}
+                          className="h-6 text-xs bg-green-600 hover:bg-green-700"
+                        >
+                          {actionLoading === 'conservation-status' ? (
+                            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                          ) : (
+                            <Check className="h-3 w-3 mr-1" />
+                          )}
+                          Save
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {/* Auto-check button - always show if parent has taxon */}
+                      {selectedParent.taxon && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => checkConservationStatus(selectedParent.itemId, selectedParent.taxon!)}
+                          disabled={actionLoading === 'check-conservation'}
+                          className="h-7 text-xs bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                        >
+                          {actionLoading === 'check-conservation' ? (
+                            <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                          ) : (
+                            <Globe className="h-3 w-3 mr-1" />
+                          )}
+                          Check Status
+                        </Button>
+                      )}
+                      
+                      {/* Manual edit button */}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setEditingConservationStatus(selectedParent.itemId)
+                          setConservationForm(parseConservationStatus(selectedParent.conservationStatus) || {})
+                        }}
+                        className="h-6 text-xs"
+                      >
+                        {selectedParent.conservationStatus ? 'Edit' : 'Add Manually'}
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {/* No taxon message */}
+                  {!selectedParent.taxon && !selectedParent.conservationStatus && (
+                    <p className="text-[10px] text-muted-foreground mt-1">
+                      Add a scientific name (taxon) above to enable auto-check from IUCN/CITES databases.
+                    </p>
+                  )}
+                </div>
+
+                {/* Parent Notes Section */}
+                <div className="mt-2 pt-2 border-t">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                      <Info className="h-3 w-3" />
+                      Notes:
+                    </span>
+                  </div>
+                  
+                  {editingNotes === selectedParent.itemId ? (
+                    <div className="space-y-2">
+                      <Textarea
+                        placeholder="Add notes about this ingredient..."
+                        value={notesInput}
+                        onChange={(e) => setNotesInput(e.target.value)}
+                        className="min-h-[60px] text-xs"
+                      />
+                      <div className="flex justify-end gap-1">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            setEditingNotes(null)
+                            setNotesInput('')
+                          }}
+                          className="h-6 text-xs"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => saveNotes(selectedParent.itemId, notesInput)}
+                          disabled={actionLoading === 'notes'}
+                          className="h-6 text-xs bg-green-600 hover:bg-green-700"
+                        >
+                          {actionLoading === 'notes' ? (
+                            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                          ) : (
+                            <Check className="h-3 w-3 mr-1" />
+                          )}
+                          Save
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-start gap-2">
+                      {selectedParent.notes ? (
+                        <div className="flex-1 text-xs text-muted-foreground bg-muted/30 p-2 rounded">
+                          {selectedParent.notes}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-muted-foreground flex-1">No notes</span>
+                      )}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setEditingNotes(selectedParent.itemId)
+                          setNotesInput(selectedParent.notes || '')
+                        }}
+                        className="h-6 text-xs flex-shrink-0"
+                      >
+                        {selectedParent.notes ? 'Edit' : 'Add'}
+                      </Button>
+                    </div>
+                  )}
+                </div>
 
                 {/* Global Edible Items Selector */}
                 {showGlobalSelector && (

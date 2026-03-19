@@ -33,6 +33,9 @@ interface ConservationResult {
 // Known conservation status for common food species
 // This serves as a local cache/fallback
 const KNOWN_STATUS: Record<string, Partial<ConservationResult>> = {
+  // Ceiba pentandra (Pochote, Kapok tree) - Vulnerable
+  'ceiba pentandra': { iucnCategory: 'VU', citesStatus: 'not_listed', riskLevel: 'moderate', tradeRestricted: false, sources: ['IUCN'] },
+  
   // Sturgeons - critically endangered, CITES Appendix II
   'acipenser baerii': { iucnCategory: 'EN', citesStatus: 'II', riskLevel: 'high', tradeRestricted: true, sources: ['IUCN', 'CITES'] },
   'acipenser gueldenstaedtii': { iucnCategory: 'CR', citesStatus: 'II', riskLevel: 'critical', tradeRestricted: true, sources: ['IUCN', 'CITES'] },
