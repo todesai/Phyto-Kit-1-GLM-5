@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The image shows a **text snippet** displaying the partial text \"Chemical Na\" (likely a truncated version of a longer term, such as \"Chemical Name\"). The text is rendered in a simple, sans-serif font, with no additional graphical elements, icons, or formatting (e.g., bold, italic, color variations).  \n\n### Context & Purpose:  \nThis is not a UI mockup (which would include interactive elements, layout, or design system components), a database structure (which would depict tables, relationships, or schema), or a comprehensive design reference (which would include style guides, color palettes, or component libraries). Instead, it appears to be a **truncated label or placeholder text**—possibly from a form, document, or interface where the full text (\"Chemical Name\") is cut off. It could be used as a reference for text styling, a placeholder in a design draft, or a snippet from a larger UI element (e.g., a table header or input field label).",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1771040616,
+  "id": "2026021411432429341dc61fea4b19",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "2026021411432429341dc61fea4b19",
+  "usage": {
+    "completion_tokens": 206,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 60,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 266
+  }
+}

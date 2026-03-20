@@ -1,0 +1,1388 @@
+{
+  "thunnus thynnus": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic bluefin tuna",
+    "commonNameEs": "Atún aleta azul",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "thunnus orientalis": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific bluefin tuna",
+    "commonNameEs": "Atún aleta azul del Pacífico",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "thunnus alalunga": {
+    "iucnCategory": "NT",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Albacore tuna",
+    "commonNameEs": "Atún blanco",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "thunnus albacares": {
+    "iucnCategory": "NT",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Yellowfin tuna",
+    "commonNameEs": "Atún aleta amarilla",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "thunnus obesus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Bigeye tuna",
+    "commonNameEs": "Atún patudo",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "katsuwonus pelamis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Skipjack tuna",
+    "commonNameEs": "Listado/Bonito",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "scomber scombrus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic mackerel",
+    "commonNameEs": "Caballa del Atlántico",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "scomber japonicus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific mackerel",
+    "commonNameEs": "Caballa del Pacífico",
+    "lastAssessed": "2010",
+    "cachedAt": "2026-03-15"
+  },
+  "centropomus undecimalis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common snook",
+    "commonNameEs": "Robalo",
+    "lastAssessed": "2019",
+    "regionalStatus": "Florida Gulf: Protected (cold kill recovery)",
+    "cachedAt": "2026-03-15"
+  },
+  "centropomus viridis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "White snook",
+    "commonNameEs": "Robalo blanco",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "centropomus poeyi": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mexican snook",
+    "commonNameEs": "Robalo mexicano",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "centropomus nigrescens": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Black snook",
+    "commonNameEs": "Robalo negro",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "gadus morhua": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic cod",
+    "commonNameEs": "Bacalao del Atlántico",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "gadus macrocephalus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific cod",
+    "commonNameEs": "Bacalao del Pacífico",
+    "lastAssessed": "2010",
+    "cachedAt": "2026-03-15"
+  },
+  "gadus chalcogrammus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Alaska pollock",
+    "commonNameEs": "Abadejo de Alaska",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "salmo salar": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic salmon",
+    "commonNameEs": "Salmón del Atlántico",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus tshawytscha": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Chinook salmon",
+    "commonNameEs": "Salmón chinook",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus kisutch": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Coho salmon",
+    "commonNameEs": "Salmón coho",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus gorbuscha": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pink salmon",
+    "commonNameEs": "Salmón rosa",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus keta": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Chum salmon",
+    "commonNameEs": "Salmón chum",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus nerka": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Sockeye salmon",
+    "commonNameEs": "Salmón rojo",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "oncorhynchus mykiss": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Rainbow trout",
+    "commonNameEs": "Trucha arcoíris",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "salmo trutta": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Brown trout",
+    "commonNameEs": "Trucha común",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "dicentrarchus labrax": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "European sea bass",
+    "commonNameEs": "Lubina",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "lates calcarifer": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Barramundi",
+    "commonNameEs": "Barramundi",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "epinephelus itajara": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Goliath grouper",
+    "commonNameEs": "Mero gigante",
+    "lastAssessed": "2018",
+    "regionalStatus": "US/Brazil: Protected",
+    "cachedAt": "2026-03-15"
+  },
+  "epinephelus lanceolatus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Giant grouper",
+    "commonNameEs": "Mero gigante",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "epinephelus malabaricus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Malabar grouper",
+    "commonNameEs": "Mero de Malabar",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "epinephelus coioides": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Orange-spotted grouper",
+    "commonNameEs": "Mero naranja",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "epinephelus fuscoguttatus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Brown-marbled grouper",
+    "commonNameEs": "Mero marmoleado",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "mycteroperca microlepis": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Gag grouper",
+    "commonNameEs": "Mero gag",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "mycteroperca bonaci": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Black grouper",
+    "commonNameEs": "Mero negro",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "lutjanus campechanus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Red snapper",
+    "commonNameEs": "Huachinango",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "lutjanus purpureus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Southern red snapper",
+    "commonNameEs": "Pargo rojo",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "lutjanus peru": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific red snapper",
+    "commonNameEs": "Pargo del Pacífico",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "lutjanus guttatus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Spotted rose snapper",
+    "commonNameEs": "Pargo lunarejo",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "paralichthys dentatus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Summer flounder",
+    "commonNameEs": "Lenguado de verano",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "paralichthys californicus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "California halibut",
+    "commonNameEs": "Halibut de California",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "hippoglossus hippoglossus": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic halibut",
+    "commonNameEs": "Halibut del Atlántico",
+    "lastAssessed": "2017",
+    "cachedAt": "2026-03-15"
+  },
+  "hippoglossus stenolepis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific halibut",
+    "commonNameEs": "Halibut del Pacífico",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "xiphias gladius": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Swordfish",
+    "commonNameEs": "Pez espada",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "istiophorus platypterus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Sailfish",
+    "commonNameEs": "Pez vela",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "makaira nigricans": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Blue marlin",
+    "commonNameEs": "Marlín azul",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "kajikia audax": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Striped marlin",
+    "commonNameEs": "Marlín rayado",
+    "lastAssessed": "2021",
+    "cachedAt": "2026-03-15"
+  },
+  "engraulis encrasicolus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "European anchovy",
+    "commonNameEs": "Anchoa",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "engraulis mordax": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Northern anchovy",
+    "commonNameEs": "Anchoa del norte",
+    "lastAssessed": "2010",
+    "cachedAt": "2026-03-15"
+  },
+  "sardina pilchardus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "European sardine",
+    "commonNameEs": "Sardina",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "sardinops sagax": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific sardine",
+    "commonNameEs": "Sardina del Pacífico",
+    "lastAssessed": "2010",
+    "cachedAt": "2026-03-15"
+  },
+  "oreochromis niloticus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Nile tilapia",
+    "commonNameEs": "Tilapia del Nilo",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "oreochromis mossambicus": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mozambique tilapia",
+    "commonNameEs": "Tilapia de Mozambique",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "oreochromis aureus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Blue tilapia",
+    "commonNameEs": "Tilapia azul",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "ictalurus punctatus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Channel catfish",
+    "commonNameEs": "Bagre de canal",
+    "lastAssessed": "2012",
+    "cachedAt": "2026-03-15"
+  },
+  "pangasianodon hypophthalmus": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pangasius",
+    "commonNameEs": "Pangasius",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "seriola lalandi": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Yellowtail amberjack",
+    "commonNameEs": "Jurel",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "seriola dumerili": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Greater amberjack",
+    "commonNameEs": "Medregal",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "trachurus trachurus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic horse mackerel",
+    "commonNameEs": "Jurel",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "sarda sarda": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Atlantic bonito",
+    "commonNameEs": "Bonito del Atlántico",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "coryphaena hippurus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mahi-mahi",
+    "commonNameEs": "Dorado",
+    "lastAssessed": "2011",
+    "cachedAt": "2026-03-15"
+  },
+  "acipenser baerii": {
+    "iucnCategory": "EN",
+    "citesStatus": "II",
+    "commonNameEn": "Siberian sturgeon",
+    "commonNameEs": "Esturión siberiano",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "acipenser gueldenstaedtii": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Russian sturgeon",
+    "commonNameEs": "Esturión ruso",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "acipenser ruthenus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Sterlet",
+    "commonNameEs": "Esturión esterleto",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "acipenser stellatus": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Starred sturgeon",
+    "commonNameEs": "Esturión estrellado",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "acipenser transmontanus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "White sturgeon",
+    "commonNameEs": "Esturión blanco",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "huso huso": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Beluga sturgeon",
+    "commonNameEs": "Esturión beluga",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "anguilla anguilla": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "European eel",
+    "commonNameEs": "Anguila europea",
+    "lastAssessed": "2023",
+    "cachedAt": "2026-03-15"
+  },
+  "anguilla rostrata": {
+    "iucnCategory": "EN",
+    "citesStatus": "II",
+    "commonNameEn": "American eel",
+    "commonNameEs": "Anguila americana",
+    "lastAssessed": "2023",
+    "cachedAt": "2026-03-15"
+  },
+  "anguilla japonica": {
+    "iucnCategory": "EN",
+    "citesStatus": "II",
+    "commonNameEn": "Japanese eel",
+    "commonNameEs": "Anguila japonesa",
+    "lastAssessed": "2023",
+    "cachedAt": "2026-03-15"
+  },
+  "cyprinus carpio": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common carp",
+    "commonNameEs": "Carpa común",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "ctenopharyngodon idella": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Grass carp",
+    "commonNameEs": "Carpa herbívora",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "hypophthalmichthys molitrix": {
+    "iucnCategory": "EN",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Silver carp",
+    "commonNameEs": "Carpa plateada",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "colossoma macropomum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Tambaqui",
+    "commonNameEs": "Tambaqui",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "piaractus mesopotamicus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacu",
+    "commonNameEs": "Pacú",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "penaeus monodon": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Giant tiger prawn",
+    "commonNameEs": "Camarón tigre gigante",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "penaeus vannamei": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Whiteleg shrimp",
+    "commonNameEs": "Camarón blanco",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "litopenaeus stylirostris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Blue shrimp",
+    "commonNameEs": "Camarón azul",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "homarus americanus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "American lobster",
+    "commonNameEs": "Langosta americana",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "panulirus argus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Caribbean spiny lobster",
+    "commonNameEs": "Langosta espinosa",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "panulirus interruptus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "California spiny lobster",
+    "commonNameEs": "Langosta de California",
+    "lastAssessed": "2013",
+    "cachedAt": "2026-03-15"
+  },
+  "crassostrea gigas": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific oyster",
+    "commonNameEs": "Ostra del Pacífico",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "crassostrea virginica": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Eastern oyster",
+    "commonNameEs": "Ostra americana",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "mytilus edulis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Blue mussel",
+    "commonNameEs": "Mejillón azul",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "pecten maximus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Great scallop",
+    "commonNameEs": "Vieira",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "argopecten irradians": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Bay scallop",
+    "commonNameEs": "Vieira de bahía",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "octopus vulgaris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common octopus",
+    "commonNameEs": "Pulpo común",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "octopus maya": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mexican four-eyed octopus",
+    "commonNameEs": "Pulpo rojo",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "octopus mimus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pacific octopus",
+    "commonNameEs": "Pulpo del Pacífico",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "loligo vulgaris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "European squid",
+    "commonNameEs": "Calamar europeo",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "dosidicus gigas": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Humboldt squid",
+    "commonNameEs": "Calamar gigante",
+    "lastAssessed": "2014",
+    "cachedAt": "2026-03-15"
+  },
+  "sphyrna lewini": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Scalloped hammerhead",
+    "commonNameEs": "Tiburón martillo",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "sphyrna mokarran": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Great hammerhead",
+    "commonNameEs": "Tiburón martillo gigante",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "carcharhinus limbatus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Blacktip shark",
+    "commonNameEs": "Tiburón punta negra",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "carcharhinus leucas": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Bull shark",
+    "commonNameEs": "Tiburón toro",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "isurus oxyrinchus": {
+    "iucnCategory": "EN",
+    "citesStatus": "II",
+    "commonNameEn": "Shortfin mako",
+    "commonNameEs": "Marrajo",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "carcharodon carcharias": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Great white shark",
+    "commonNameEs": "Gran tiburón blanco",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "galeorhinus galeus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "School shark",
+    "commonNameEs": "Tiburón sardinero",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "prionace glauca": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Blue shark",
+    "commonNameEs": "Tintorera",
+    "lastAssessed": "2020",
+    "cachedAt": "2026-03-15"
+  },
+  "chelonia mydas": {
+    "iucnCategory": "EN",
+    "citesStatus": "I",
+    "commonNameEn": "Green sea turtle",
+    "commonNameEs": "Tortuga verde",
+    "lastAssessed": "2022",
+    "regionalStatus": "Mexico: NOM-059 En peligro de extinción",
+    "cachedAt": "2026-03-15"
+  },
+  "eretmochelys imbricata": {
+    "iucnCategory": "CR",
+    "citesStatus": "I",
+    "commonNameEn": "Hawksbill sea turtle",
+    "commonNameEs": "Tortuga carey",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "caretta caretta": {
+    "iucnCategory": "VU",
+    "citesStatus": "I",
+    "commonNameEn": "Loggerhead sea turtle",
+    "commonNameEs": "Tortuga caguama",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "lepidochelys olivacea": {
+    "iucnCategory": "VU",
+    "citesStatus": "I",
+    "commonNameEn": "Olive ridley sea turtle",
+    "commonNameEs": "Tortuga golfina",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "dermochelys coriacea": {
+    "iucnCategory": "VU",
+    "citesStatus": "I",
+    "commonNameEn": "Leatherback sea turtle",
+    "commonNameEs": "Tortuga laúd",
+    "lastAssessed": "2022",
+    "cachedAt": "2026-03-15"
+  },
+  "bos taurus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Cattle",
+    "commonNameEs": "Res/Vaca",
+    "cachedAt": "2026-03-15"
+  },
+  "sus scrofa domesticus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Domestic pig",
+    "commonNameEs": "Cerdo",
+    "cachedAt": "2026-03-15"
+  },
+  "ovis aries": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Sheep",
+    "commonNameEs": "Oveja",
+    "cachedAt": "2026-03-15"
+  },
+  "capra hircus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Domestic goat",
+    "commonNameEs": "Cabra",
+    "cachedAt": "2026-03-15"
+  },
+  "gallus gallus domesticus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Chicken",
+    "commonNameEs": "Pollo",
+    "cachedAt": "2026-03-15"
+  },
+  "meleagris gallopavo": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Domestic turkey",
+    "commonNameEs": "Pavo",
+    "cachedAt": "2026-03-15"
+  },
+  "anas platyrhynchos domesticus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Domestic duck",
+    "commonNameEs": "Pato doméstico",
+    "cachedAt": "2026-03-15"
+  },
+  "odocoileus virginianus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "White-tailed deer",
+    "commonNameEs": "Venado cola blanca",
+    "lastAssessed": "2016",
+    "cachedAt": "2026-03-15"
+  },
+  "puma concolor": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Cougar/Puma",
+    "commonNameEs": "Puma",
+    "lastAssessed": "2015",
+    "cachedAt": "2026-03-15"
+  },
+  "teculzte": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Iguana",
+    "commonNameEs": "Iguana verde",
+    "cachedAt": "2026-03-15"
+  },
+  "crocodylus acutus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "American crocodile",
+    "commonNameEs": "Cocodrilo americano",
+    "lastAssessed": "2022",
+    "regionalStatus": "Mexico: NOM-059 Sujeta a protección especial",
+    "cachedAt": "2026-03-15"
+  },
+  "crocodylus moreletii": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Morelet's crocodile",
+    "commonNameEs": "Cocodrilo de pantano",
+    "lastAssessed": "2022",
+    "regionalStatus": "Mexico: NOM-059 Sujeta a protección especial",
+    "cachedAt": "2026-03-15"
+  },
+  "allium cepa": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Onion",
+    "commonNameEs": "Cebolla",
+    "cachedAt": "2026-03-15"
+  },
+  "allium sativum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Garlic",
+    "commonNameEs": "Ajo",
+    "cachedAt": "2026-03-15"
+  },
+  "solanum lycopersicum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Tomato",
+    "commonNameEs": "Jitomate",
+    "cachedAt": "2026-03-15"
+  },
+  "solanum tuberosum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Potato",
+    "commonNameEs": "Papa",
+    "cachedAt": "2026-03-15"
+  },
+  "capsicum annuum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Bell pepper/Chili",
+    "commonNameEs": "Chile/Pimiento",
+    "cachedAt": "2026-03-15"
+  },
+  "cucurbita pepo": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Zucchini/Squash",
+    "commonNameEs": "Calabaza",
+    "cachedAt": "2026-03-15"
+  },
+  "cucurbita moschata": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Butternut squash",
+    "commonNameEs": "Calabaza de castilla",
+    "cachedAt": "2026-03-15"
+  },
+  "cucurbita ficifolia": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Fig-leaf gourd",
+    "commonNameEs": "Chilacayote",
+    "cachedAt": "2026-03-15"
+  },
+  "phaseolus vulgaris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common bean",
+    "commonNameEs": "Frijol",
+    "cachedAt": "2026-03-15"
+  },
+  "phaseolus coccineus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Runner bean",
+    "commonNameEs": "Ayocote",
+    "cachedAt": "2026-03-15"
+  },
+  "vigna unguiculata": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Cowpea",
+    "commonNameEs": "Caupí",
+    "cachedAt": "2026-03-15"
+  },
+  "zea mays": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Corn/Maize",
+    "commonNameEs": "Maíz",
+    "cachedAt": "2026-03-15"
+  },
+  "oryza sativa": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Asian rice",
+    "commonNameEs": "Arroz",
+    "cachedAt": "2026-03-15"
+  },
+  "triticum aestivum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common wheat",
+    "commonNameEs": "Trigo",
+    "cachedAt": "2026-03-15"
+  },
+  "spinacia oleracea": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Spinach",
+    "commonNameEs": "Espinaca",
+    "cachedAt": "2026-03-15"
+  },
+  "beta vulgaris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Beet",
+    "commonNameEs": "Betabel",
+    "cachedAt": "2026-03-15"
+  },
+  "daucus carota": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Carrot",
+    "commonNameEs": "Zanahoria",
+    "cachedAt": "2026-03-15"
+  },
+  "brassica oleracea": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Cabbage/Kale",
+    "commonNameEs": "Col/Repollo",
+    "cachedAt": "2026-03-15"
+  },
+  "nasturtium officinale": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Watercress",
+    "commonNameEs": "Berro",
+    "cachedAt": "2026-03-15"
+  },
+  "persea americana": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Avocado",
+    "commonNameEs": "Aguacate",
+    "cachedAt": "2026-03-15"
+  },
+  "mangifera indica": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mango",
+    "commonNameEs": "Mango",
+    "cachedAt": "2026-03-15"
+  },
+  "citrus sinensis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Sweet orange",
+    "commonNameEs": "Naranja dulce",
+    "cachedAt": "2026-03-15"
+  },
+  "citrus limon": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Lemon",
+    "commonNameEs": "Limón",
+    "cachedAt": "2026-03-15"
+  },
+  "citrus aurantiifolia": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Key lime",
+    "commonNameEs": "Limón mexicano",
+    "cachedAt": "2026-03-15"
+  },
+  "citrus paradisi": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Grapefruit",
+    "commonNameEs": "Toronja",
+    "cachedAt": "2026-03-15"
+  },
+  "carica papaya": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Papaya",
+    "commonNameEs": "Papaya",
+    "cachedAt": "2026-03-15"
+  },
+  "ananus comosus": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pineapple",
+    "commonNameEs": "Piña",
+    "cachedAt": "2026-03-15"
+  },
+  "musca acuminata": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Banana",
+    "commonNameEs": "Plátano",
+    "cachedAt": "2026-03-15"
+  },
+  "fragaria ananassa": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Garden strawberry",
+    "commonNameEs": "Fresa",
+    "cachedAt": "2026-03-15"
+  },
+  "vitis vinifera": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common grape",
+    "commonNameEs": "Uva",
+    "cachedAt": "2026-03-15"
+  },
+  "ficus carica": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Common fig",
+    "commonNameEs": "Higo",
+    "cachedAt": "2026-03-15"
+  },
+  "opuntia ficus-indica": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Prickly pear",
+    "commonNameEs": "Nopal/Tuna",
+    "cachedAt": "2026-03-15"
+  },
+  "psidium guajava": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Guava",
+    "commonNameEs": "Guayaba",
+    "cachedAt": "2026-03-15"
+  },
+  "annona muricata": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Soursop",
+    "commonNameEs": "Guanábana",
+    "cachedAt": "2026-03-15"
+  },
+  "annona cherimola": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Cherimoya",
+    "commonNameEs": "Chirimoya",
+    "cachedAt": "2026-03-15"
+  },
+  "tamarindus indica": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Tamarind",
+    "commonNameEs": "Tamarindo",
+    "cachedAt": "2026-03-15"
+  },
+  "spondias purpurea": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Spanish plum",
+    "commonNameEs": "Jocote/Ciruela",
+    "cachedAt": "2026-03-15"
+  },
+  "byrsonima crassifolia": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Nance",
+    "commonNameEs": "Nance",
+    "cachedAt": "2026-03-15"
+  },
+  "pouteria sapota": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Mamey sapote",
+    "commonNameEs": "Mamey",
+    "cachedAt": "2026-03-15"
+  },
+  "manilkara zapota": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Sapodilla",
+    "commonNameEs": "Chicozapote",
+    "cachedAt": "2026-03-15"
+  },
+  "casimiroa edulis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "White sapote",
+    "commonNameEs": "Zapote blanco",
+    "cachedAt": "2026-03-15"
+  },
+  "arachis hypogaea": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Peanut",
+    "commonNameEs": "Cacahuate",
+    "cachedAt": "2026-03-15"
+  },
+  "corylus avellana": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Hazelnut",
+    "commonNameEs": "Avellana",
+    "cachedAt": "2026-03-15"
+  },
+  "juglans regia": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "English walnut",
+    "commonNameEs": "Nuez",
+    "cachedAt": "2026-03-15"
+  },
+  "bertholletia excelsa": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Brazil nut",
+    "commonNameEs": "Nuez de Brasil",
+    "lastAssessed": "2018",
+    "cachedAt": "2026-03-15"
+  },
+  "carya illinoinensis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Pecan",
+    "commonNameEs": "Nuez de nuez",
+    "cachedAt": "2026-03-15"
+  },
+  "echinocactus platyacanthus": {
+    "iucnCategory": "VU",
+    "citesStatus": "II",
+    "commonNameEn": "Giant barrel cactus",
+    "commonNameEs": "Biznaga gigante",
+    "lastAssessed": "2016",
+    "regionalStatus": "NOM-059: Amenazada",
+    "cachedAt": "2026-03-15"
+  },
+  "lophophora williamsii": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Peyote",
+    "commonNameEs": "Peyote",
+    "regionalStatus": "NOM-059: Sujeta a protección especial",
+    "cachedAt": "2026-03-15"
+  },
+  "yucca filifera": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Spanish dagger",
+    "commonNameEs": "Palma china",
+    "regionalStatus": "NOM-059: Sujeta a protección especial",
+    "cachedAt": "2026-03-15"
+  },
+  "ambystoma mexicanum": {
+    "iucnCategory": "CR",
+    "citesStatus": "II",
+    "commonNameEn": "Axolotl",
+    "commonNameEs": "Ajolote",
+    "lastAssessed": "2022",
+    "regionalStatus": "NOM-059: En peligro de extinción",
+    "cachedAt": "2026-03-15"
+  },
+  "piper nigrum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Black pepper",
+    "commonNameEs": "Pimienta negra",
+    "cachedAt": "2026-03-15"
+  },
+  "cinnamomum verum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Cinnamon",
+    "commonNameEs": "Canela",
+    "cachedAt": "2026-03-15"
+  },
+  "syzygium aromaticum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Clove",
+    "commonNameEs": "Clavo",
+    "cachedAt": "2026-03-15"
+  },
+  "myristica fragrans": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Nutmeg",
+    "commonNameEs": "Nuez moscada",
+    "cachedAt": "2026-03-15"
+  },
+  "coriandrum sativum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Coriander",
+    "commonNameEs": "Cilantro",
+    "cachedAt": "2026-03-15"
+  },
+  "origanum vulgare": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Oregano",
+    "commonNameEs": "Orégano",
+    "cachedAt": "2026-03-15"
+  },
+  "thymus vulgaris": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Thyme",
+    "commonNameEs": "Tomillo",
+    "cachedAt": "2026-03-15"
+  },
+  "mentha spicata": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Spearmint",
+    "commonNameEs": "Hierbabuena",
+    "cachedAt": "2026-03-15"
+  },
+  "rosmarinus officinalis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Rosemary",
+    "commonNameEs": "Romero",
+    "cachedAt": "2026-03-15"
+  },
+  "petroselinum crispum": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Parsley",
+    "commonNameEs": "Perejil",
+    "cachedAt": "2026-03-15"
+  },
+  "foeniculum vulgare": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Fennel",
+    "commonNameEs": "Hinojo",
+    "cachedAt": "2026-03-15"
+  },
+  "anethum graveolens": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Dill",
+    "commonNameEs": "Eneldo",
+    "cachedAt": "2026-03-15"
+  },
+  "laurus nobilis": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Bay laurel",
+    "commonNameEs": "Laurel",
+    "cachedAt": "2026-03-15"
+  },
+  "Vanilla planifolia": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Vanilla",
+    "commonNameEs": "Vainilla",
+    "cachedAt": "2026-03-15"
+  },
+  "boswellia sacra": {
+    "iucnCategory": "NT",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Frankincense",
+    "commonNameEs": "Incienso",
+    "lastAssessed": "2019",
+    "cachedAt": "2026-03-15"
+  },
+  "glycyrrhiza glabra": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Licorice",
+    "commonNameEs": "Regaliz",
+    "cachedAt": "2026-03-15"
+  },
+  "acacia senegal": {
+    "iucnCategory": "LC",
+    "citesStatus": "not_listed",
+    "commonNameEn": "Gum arabic tree",
+    "commonNameEs": "Acacia",
+    "cachedAt": "2026-03-15"
+  },
+  "euphorbia antisyphilitica": {
+    "iucnCategory": "LC",
+    "citesStatus": "II",
+    "commonNameEn": "Candelilla",
+    "commonNameEs": "Candelilla",
+    "regionalStatus": "Mexico: Protected harvest",
+    "cachedAt": "2026-03-15"
+  }
+}

@@ -1,0 +1,17 @@
+
+For context I have no knowledge in coding. I have knowlege in food chemistry. I need GLM-4.7 to build an appp ready to upload to google play, with the purpose to sell it in there. With extra services or products in an independent website (no in-app purchases). The website is a mirror of the mobile app, and should be also be a point of updating capabilities that would be translated later to the mobile app. The default view of the app is dark mode with a toggle to change it. The purpose of the app is a food recipe database collector connected by API to TheMealDB, what out with Parsing errors (syntax). The TheMealDB gives initial data to the next sections of the app which will perform analysis based on the ingredients of the recipe. 
+
+HOMEPAGE: allows the user to select recipies of find one and scrape the info from a URL, there are also other methods to input a recipie, like scanning, dictating, manually inputing in a form. This section has a comprehensive mix of filters to find a suitable recipe like per breakfast, main meal, dinner, total time of preparation, difficulty, ingredient names, quantity of ingredients, health supporting properties, 
+ comparison. 
+
+NUTRITION BREAKDOWN AND RECIPE IMPROVEMENT: looks for macro and micronutrients based in ingredients (see https://fisiologia.facmed.unam.mx/wp-content/uploads/2019/02/2-Valoraci%C3%B3n-nutricional-Anexos.pdf and CSV downloaded from https://siagro.conabio.gob.mx/nutricion/download/ ) fallback to USDA for ingredients not found in mexican database, if low nutrition profile, AI recommendations to improve the recipe. Should have a toggle to see Macros and micronutrientes based in the weight of the portion, or per 100 gr. In case of accepting the AI suggestion, have capability to add or change ingredients, and save as new or replace. 
+
+FOOD SAFETY: this section gives relevant information according to accepted standards like HACCP, Codex Alimentarius, FDA, USDA, European regulations, Australia regulations, etc. Other scientific papers I have in pdf. Whatch out for combination of time and temperature, cooling, storing, disinfection, presence of pathogens and their toxins, ingredient natural toxins, etc. 
+
+BIOACTIVE COMPOUNDS PRESENT: that could improve health conditions like phytochemicals or nutraceuticals, reviewing https://phytohub.eu/entries#show-precursors and https://www.foodb.ca/downloads . Recomendations to improve recipe to retain or add phytochemicals, warnings in cases that an excess can represent a health risk. A graphical vision of the dose delivered in the portion vs. DRI if existing. I have pdf that would be supporting knowledge for this section too. 
+
+APROXIMATE COST CALCULATOR: per portion (intrinsic cost per quantity used of the ingredients) and excecution cost per the issue of not having an ingredient and having to purchase a whole jar of a spice, when a small portion of it is used in the recipe. Prices should be scraped from online stores, if possible connect to make the purchase of ingredients or at least a list to purchase them. 
+
+CHEF MODE: read aloud the recipe process with capability to play all, per step, back and next. My collections: albums of recipies that can incorporate user photos of the dish, its preparation, or enjoyin them, third party used to have them printed like Popsa, or others.
+
+RECIPE ALBUMS PRINTING: use third party services to send them or share a collection of recipies to be printed in a book or album format (Popsa like service), that would be a pay per service option in an external website not in the app.

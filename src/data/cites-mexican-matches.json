@@ -1,0 +1,116 @@
+{
+  "summary": {
+    "totalMexicanTaxa": 151,
+    "totalCitesMatches": 5,
+    "appendixI": 0,
+    "appendixII": 5,
+    "appendixIII": 0,
+    "alreadyWithStatus": 4
+  },
+  "appendixI": [],
+  "appendixII": [
+    {
+      "id": "cmllv2fkp01clqk6sk1jv13sr",
+      "nombreEspanol": "Pitahaya Blanca",
+      "nombreIngles": "Cereus White",
+      "taxon": "Hylocereus undatus",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2fks01cmqk6syg9nkr7j",
+      "nombreEspanol": "Pitahaya Rosa",
+      "nombreIngles": "Cereus Rose",
+      "taxon": "Hylocereus costaricensis",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2fo901e3qk6s7j1nslfc",
+      "nombreEspanol": "Tuna Blanca Prensada",
+      "nombreIngles": "Prickly Pear White, Pressed",
+      "taxon": "Opuntia ficus-indica",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2gkw01t0qk6skhwamy17",
+      "nombreEspanol": "Cardon Mezcla Con Zóstera Marina",
+      "nombreIngles": "Cactus Giant Cactus Mixed With Eelgrass",
+      "taxon": "Pachycereus pringlei",
+      "tipoAlimento": "OTRAS SEMILLAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2guj01xyqk6svxcjo7ka",
+      "nombreEspanol": "Tiburon Cartílago Deshidratado",
+      "nombreIngles": "Shark Dry Cartilage Protein",
+      "taxon": "Carcharhinus albimarginatus",
+      "tipoAlimento": "PESCADOS Y MARISCOS",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Carcharhinidae"
+    }
+  ],
+  "appendixIII": [],
+  "allMatches": [
+    {
+      "id": "cmllv2fkp01clqk6sk1jv13sr",
+      "nombreEspanol": "Pitahaya Blanca",
+      "nombreIngles": "Cereus White",
+      "taxon": "Hylocereus undatus",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2fks01cmqk6syg9nkr7j",
+      "nombreEspanol": "Pitahaya Rosa",
+      "nombreIngles": "Cereus Rose",
+      "taxon": "Hylocereus costaricensis",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2fo901e3qk6s7j1nslfc",
+      "nombreEspanol": "Tuna Blanca Prensada",
+      "nombreIngles": "Prickly Pear White, Pressed",
+      "taxon": "Opuntia ficus-indica",
+      "tipoAlimento": "FRUTAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2gkw01t0qk6skhwamy17",
+      "nombreEspanol": "Cardon Mezcla Con Zóstera Marina",
+      "nombreIngles": "Cactus Giant Cactus Mixed With Eelgrass",
+      "taxon": "Pachycereus pringlei",
+      "tipoAlimento": "OTRAS SEMILLAS",
+      "citesStatus": "II",
+      "kingdom": "Plantae",
+      "family": "Cactaceae"
+    },
+    {
+      "id": "cmllv2guj01xyqk6svxcjo7ka",
+      "nombreEspanol": "Tiburon Cartílago Deshidratado",
+      "nombreIngles": "Shark Dry Cartilage Protein",
+      "taxon": "Carcharhinus albimarginatus",
+      "tipoAlimento": "PESCADOS Y MARISCOS",
+      "citesStatus": "II",
+      "kingdom": "Animalia",
+      "family": "Carcharhinidae"
+    }
+  ]
+}

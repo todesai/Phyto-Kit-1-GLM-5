@@ -1,0 +1,3 @@
+# This folder stores backup files
+# Backup files are JSON snapshots created by the backup system
+# Each backup creates a file like: backup-2026-03-18T04-00-00-000Z_Backup_name.json

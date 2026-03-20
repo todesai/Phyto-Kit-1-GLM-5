@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "backups": [
+    {
+      "id": "backup-1773606805444-tagovr6ii",
+      "filename": "backup-2026-03-15T20-33-25-444Z.db",
+      "timestamp": "2026-03-15T20:33:25.444Z",
+      "trigger": "auto",
+      "triggerSource": "hierarchy",
+      "triggerDetails": "Set scientific name \"Portulaca oleracea L.\" for 1 items",
+      "fileSizeBytes": 7122944,
+      "checksum": "df3723c68dfa665c5cbe608d4a9581482cfcc6ee8a1ec7828fed8857785483e0",
+      "mode": "full",
+      "includesNotes": true,
+      "includesHierarchy": true,
+      "includesConservation": true,
+      "includesWordClass": true,
+      "includesNutrition": true,
+      "includesRecipes": true,
+      "includesAuditLogs": true
+    },
+    {
+      "id": "backup-1773606744623-u1vvdl2lx",
+      "filename": "backup-2026-03-15T20-32-24-623Z.db",
+      "timestamp": "2026-03-15T20:32:24.623Z",
+      "trigger": "auto",
+      "triggerSource": "notes",
+      "triggerDetails": "Update notes for item cmllv2j9g0314qk6s622c4s4v",
+      "fileSizeBytes": 7122944,
+      "checksum": "cca852d52686f47476c54c3bf399e087b081e65348a5a4cc90b32aaa3120b77a",
+      "mode": "full",
+      "includesNotes": true,
+      "includesHierarchy": true,
+      "includesConservation": true,
+      "includesWordClass": true,
+      "includesNutrition": true,
+      "includesRecipes": true,
+      "includesAuditLogs": true
+    },
+    {
+      "id": "backup-1773604412700-mmj6yyxzb",
+      "filename": "backup-2026-03-15T19-53-32-700Z.db",
+      "timestamp": "2026-03-15T19:53:32.700Z",
+      "trigger": "manual",
+      "fileSizeBytes": 7122944,
+      "checksum": "cca852d52686f47476c54c3bf399e087b081e65348a5a4cc90b32aaa3120b77a",
+      "notes": "Initial backup after implementing backup system",
+      "mode": "full",
+      "includesNotes": true,
+      "includesHierarchy": true,
+      "includesConservation": true,
+      "includesWordClass": true,
+      "includesNutrition": true,
+      "includesRecipes": true,
+      "includesAuditLogs": true
+    }
+  ]
+}

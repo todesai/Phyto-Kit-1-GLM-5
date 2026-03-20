@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.efsa.europa.eu/en/discover/infographics/openfoodtox-chemical-hazards-database",
+    "name": "OpenFoodTox: chemical hazards database - EFSA - European Union",
+    "snippet": "OpenFoodTox is a tool and source of information for scientific advisory bodies and stakeholders with an interest in chemical risk ...",
+    "host_name": "www.efsa.europa.eu",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.efsa.europa.eu/en/data-report/chemical-hazards-database-openfoodtox",
+    "name": "Chemical Hazards Database (OpenFoodTox) - EFSA",
+    "snippet": "OpenFoodTox is a tool and source of information for scientific advisory bodies and stakeholders with an interest in chemical risk assessment.",
+    "host_name": "www.efsa.europa.eu",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://zenodo.org/records/8120114",
+    "name": "OpenFoodTox: EFSA's chemical hazards database - Zenodo",
+    "snippet": "OpenFoodTox provides open source data for the substance characterisation, EFSA outputs, reference points, reference values and genotoxicity.",
+    "host_name": "zenodo.org",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://efsa.onlinelibrary.wiley.com/doi/pdf/10.2903/sp.efsa.2024.EN-8590",
+    "name": "OpenFoodTox 2.0. - EFSA Journal",
+    "snippet": "The OpenFoodTox 2.0 now includes more than 10800 assessments for over 5890 chemicals. (each assessment potentially including multiple (eco-) toxicity endpoints ...",
+    "host_name": "efsa.onlinelibrary.wiley.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.efsa.europa.eu/en/news/openfoodtox-efsas-new-one-click-tool-information-chemical-hazards",
+    "name": "EFSA's new one-click tool for information on chemical hazards",
+    "snippet": "OpenFoodTox is the new EFSA database that provides instant access to a wealth of information from over 1650 EFSA scientific outputs about ... Missing: API | Show results with: API",
+    "host_name": "www.efsa.europa.eu",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]
