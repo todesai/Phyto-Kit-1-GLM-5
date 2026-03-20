@@ -1,7 +1,7 @@
 # Ingredient Classification Workspace - Complete UI Documentation
 
-> **Version:** 1.0  
-> **Last Updated:** February 2026  
+> **Version:** 2.0  
+> **Last Updated:** March 2026  
 > **Purpose:** Detailed documentation for recreating the Phyto Kit Classification Workspace interface
 
 ---
@@ -390,6 +390,150 @@ Display children of the selected parent, allow linking/rejecting, and classify i
 - **Search Input**: Search existing GlobalEdibleItems
 - **Results List**: Scrollable list (max height 128px) of matching items
 - **Save Button**: Confirm & assign scientific name to parent
+
+### Conservation Status Section
+
+Shows IUCN/CITES conservation status for parent ingredients. This is especially important for wild-harvested ingredients.
+
+```
+┌───────────────────────────────────────────────────────────────────────┐
+│ 🛡️ Conservation Status:                                               │
+│                                                                       │
+│ ┌─────────────────────────────────────────────────────────────────┐   │
+│ │ [VU] [Not Listed] [Moderate Risk]                              │   │
+│ │                                                                 │   │
+│ │ IUCN: Vulnerable (VU)                                          │   │
+│ │ CITES: Not listed                                               │   │
+│ │ Risk Level: Moderate                                            │   │
+│ │ Trade Restricted: No                                            │   │
+│ │ Sources: IUCN Red List                                          │   │
+│ │ Last Assessed: Mar 2026                                         │   │
+│ │ Match Type: Exact match ✓                                       │   │
+│ └─────────────────────────────────────────────────────────────────┘   │
+│                                                                       │
+│ [🔄 Refresh Status]                                                   │
+└───────────────────────────────────────────────────────────────────────┘
+```
+
+#### Status Display Elements
+
+| Element | Description |
+|---------|-------------|
+| **IUCN Category Badge** | CR (red), EN (orange), VU (yellow), NT (amber), LC (green), DD (gray), NE (muted) |
+| **CITES Status Badge** | Appendix I/II/III (warning), Not Listed (default) |
+| **Risk Level Badge** | critical (red), high (orange), moderate (yellow), low (green), stable (emerald) |
+| **Match Type** | exact (green check), genus_inference (yellow warning), web_search (blue info), not_found (gray) |
+
+#### Check Status Button
+
+```tsx
+<Button 
+  size="sm" 
+  variant="outline" 
+  onClick={checkConservationStatus}
+  disabled={!selectedParent.taxon}
+>
+  <ShieldAlert className="h-3 w-3 mr-1" />
+  Check Status
+</Button>
+```
+
+#### Match Type Indicators
+
+| Match Type | Color | Icon | Description |
+|------------|-------|------|-------------|
+| `exact` | green | Check | Exact species match in KNOWN_STATUS cache |
+| `genus_inference` | yellow | AlertTriangle | Matched to related species in same genus - needs verification |
+| `web_search` | blue | Globe | Found via IUCN/CITES web search |
+| `not_found` | gray | Minus | Species not found in any database |
+
+#### Risk Level Colors
+
+| Risk Level | Background | Text | Border |
+|------------|------------|------|--------|
+| critical | red-100 | red-800 | red-300 |
+| high | orange-100 | orange-800 | orange-300 |
+| moderate | yellow-100 | yellow-800 | yellow-300 |
+| low | green-100 | green-800 | green-300 |
+| stable | emerald-100 | emerald-800 | emerald-300 |
+| unknown | gray-100 | gray-600 | gray-300 |
+
+### Parent Notes Section
+
+Allows adding ethnobotanical notes, culinary uses, and other information about parent ingredients.
+
+```
+┌───────────────────────────────────────────────────────────────────────┐
+│ ℹ️ Notes:                                                             │
+│                                                                       │
+│ ┌─────────────────────────────────────────────────────────────────┐   │
+│ │ Nombre con el que se conoce a Ceiba pentandra y Ceiba          │   │
+│ │ parvifolia. Proviene del náhuatl pochotl o puchotl que         │   │
+│ │ significa padre, madre, jefe, gobernante o protector...        │   │
+│ │                                                                 │   │
+│ │ Los tarahumaras comen los frutos tiernos y asados; también    │   │
+│ │ consumen la raíz tierna que es de sabor dulce...              │   │
+│ └─────────────────────────────────────────────────────────────────┘   │
+│                                                                       │
+│ [✏️ Edit Notes]                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+```
+
+#### Notes Editing Mode
+
+```tsx
+{editingNotes === selectedParent.itemId ? (
+  <div className="space-y-2">
+    <Textarea
+      placeholder="Add notes about this ingredient..."
+      value={notesInput}
+      onChange={(e) => setNotesInput(e.target.value)}
+      className="min-h-[60px] text-xs"
+    />
+    <div className="flex justify-end gap-1">
+      <Button size="sm" variant="ghost" onClick={() => setEditingNotes(null)}>
+        Cancel
+      </Button>
+      <Button 
+        size="sm" 
+        onClick={() => saveNotes(selectedParent.itemId, notesInput)}
+        className="h-6 text-xs bg-green-600 hover:bg-green-700"
+      >
+        Save
+      </Button>
+    </div>
+  </div>
+) : (
+  <div className="flex items-start gap-2">
+    {selectedParent.notes ? (
+      <div className="flex-1 text-xs text-muted-foreground bg-muted/30 p-2 rounded">
+        {selectedParent.notes}
+      </div>
+    ) : (
+      <span className="text-xs text-muted-foreground flex-1">No notes</span>
+    )}
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => {
+        setEditingNotes(selectedParent.itemId)
+        setNotesInput(selectedParent.notes || '')
+      }}
+    >
+      <Pencil className="h-3 w-3" />
+    </Button>
+  </div>
+)}
+```
+
+#### Notes Use Cases
+
+- Ethnobotanical information (traditional names, cultural significance)
+- Culinary uses and preparations
+- Geographic distribution
+- Nutritional highlights
+- Seasonal availability
+- Harvesting notes
 
 ### Bulk Actions Bar (When Children Selected)
 

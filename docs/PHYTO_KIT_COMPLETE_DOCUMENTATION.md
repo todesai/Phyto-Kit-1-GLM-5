@@ -1,7 +1,7 @@
 # Phyto Kit - Complete Application Documentation
 
-> **Version:** 1.0  
-> **Last Updated:** February 2026  
+> **Version:** 2.0  
+> **Last Updated:** March 2026  
 > **Purpose:** Comprehensive documentation for recreating the entire Phyto Kit application
 
 ---
@@ -10,21 +10,24 @@
 
 1. [Application Overview](#application-overview)
 2. [Technology Stack](#technology-stack)
-3. [Project Structure](#project-structure)
-4. [Main Page Layout](#main-page-layout)
-5. [Header Section](#header-section)
-6. [Hero Search Section](#hero-search-section)
-7. [Recipe Cards Grid](#recipe-cards-grid)
-8. [Recipe Detail Dialog](#recipe-detail-dialog)
-9. [File Upload Dialog](#file-upload-dialog)
-10. [Word Classification Dialog](#word-classification-dialog)
-11. [Hierarchy Review Dialog](#hierarchy-review-dialog)
-12. [Classification Workspace](#classification-workspace)
-13. [API Endpoints](#api-endpoints)
-14. [Database Schema](#database-schema)
-15. [State Management](#state-management)
-16. [Translations](#translations)
-17. [Visual Design Specifications](#visual-design-specifications)
+3. [External APIs & Tokens](#external-apis--tokens)
+4. [Project Structure](#project-structure)
+5. [Main Page Layout](#main-page-layout)
+6. [Header Section](#header-section)
+7. [Hero Search Section](#hero-search-section)
+8. [Recipe Cards Grid](#recipe-cards-grid)
+9. [Recipe Detail Dialog](#recipe-detail-dialog)
+10. [File Upload Dialog](#file-upload-dialog)
+11. [Word Classification Dialog](#word-classification-dialog)
+12. [Hierarchy Review Dialog](#hierarchy-review-dialog)
+13. [Classification Workspace](#classification-workspace)
+14. [Backup Management Dialog](#backup-management-dialog)
+15. [Conservation Status System](#conservation-status-system)
+16. [API Endpoints](#api-endpoints)
+17. [Database Schema](#database-schema)
+18. [State Management](#state-management)
+19. [Translations](#translations)
+20. [Visual Design Specifications](#visual-design-specifications)
 
 ---
 
@@ -39,6 +42,8 @@ Phyto Kit is a comprehensive recipe discovery and nutritional analysis applicati
 - Use "Chef Mode" for hands-free cooking instructions with text-to-speech
 - Manage ingredient classification and hierarchy for the Mexican food database
 - Import nutrition data from CSV files, PhytoHub compounds, and EFSA toxicity data
+- Track conservation status of wild-harvested ingredients (IUCN/CITES)
+- Create and restore backups of classification work
 
 ### Key Features
 
@@ -51,12 +56,14 @@ Phyto Kit is a comprehensive recipe discovery and nutritional analysis applicati
 | **Chef Mode** | Text-to-speech cooking instructions |
 | **Data Import** | CSV, PhytoHub, EFSA OpenFoodTox |
 | **Ingredient Classification** | Word classification and hierarchy management |
+| **Conservation Status** | IUCN Red List and CITES database integration |
+| **Backup Management** | File-based backup system with incremental support |
 
 ### Workflow
 ```
 Search Recipes → Select Recipe → View Details (Recipe/Nutrition/Bioactive/Safety/Chef Mode)
                                     ↓
-                          Manage Data (Upload/Import/Classification)
+                          Manage Data (Upload/Import/Classification/Backup)
 ```
 
 ---
@@ -83,10 +90,75 @@ Search Recipes → Select Recipe → View Details (Recipe/Nutrition/Bioactive/Sa
 | Next.js API Routes | REST endpoints |
 
 ### External APIs
-| API | Purpose |
-|-----|---------|
-| TheMealDB | Recipe data |
-| Web Speech API | Text-to-speech |
+| API | Purpose | Token Required |
+|-----|---------|----------------|
+| IUCN Red List v4 | Species conservation status | Yes |
+| USDA FoodData Central | Nutrition data fallback | Yes |
+| EPA CompTox | Toxicity data | No (open) |
+| TheMealDB | Recipe data | No |
+| Web Speech API | Text-to-speech | No |
+
+---
+
+## External APIs & Tokens
+
+### Environment Variables (.env)
+
+```env
+DATABASE_URL=file:/home/z/my-project/db/custom.db
+IUCN_API_TOKEN=your_iucn_api_token_here
+USDA_API_KEY=your_usda_api_key_here
+```
+
+### IUCN Red List API
+
+| Property | Value |
+|----------|-------|
+| **Environment Variable** | `IUCN_API_TOKEN` |
+| **API Version** | v4 |
+| **Base URL** | `https://api.iucnredlist.org/api/v4` |
+| **Endpoint** | `/taxa/scientific_name?genus_name={genus}&species_name={species}` |
+| **Authentication** | Header: `Authorization: {token}` |
+| **Purpose** | Species conservation status (CR, EN, VU, NT, LC, etc.) |
+
+**Request Example:**
+```typescript
+const response = await fetch(
+  `https://api.iucnredlist.org/api/v4/taxa/scientific_name?genus_name=Ceiba&species_name=pentandra`,
+  {
+    headers: {
+      'Authorization': IUCN_API_TOKEN,
+      'Accept': 'application/json',
+      'User-Agent': 'PhytoKit/1.0'
+    }
+  }
+)
+```
+
+### USDA FoodData Central API
+
+| Property | Value |
+|----------|-------|
+| **Environment Variable** | `USDA_API_KEY` |
+| **Base URL** | `https://api.nal.usda.gov/fdc/v1` |
+| **Endpoint** | `/foods/search?api_key={key}&query={query}` |
+| **Purpose** | Nutrition data fallback for ingredients not in Mexican database |
+
+**Request Example:**
+```typescript
+const response = await fetch(
+  `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${query}`
+)
+```
+
+### EPA CompTox API
+
+| Property | Value |
+|----------|-------|
+| **Authentication** | Open (no token required) |
+| **Base URL** | `https://comptox.epa.gov/ctx-api` |
+| **Purpose** | Toxicity, hazard, and exposure data for chemicals |
+| **Rate Limiting** | 200ms delay between requests (self-imposed) |
 
 ---
 
@@ -95,7 +167,7 @@ Search Recipes → Select Recipe → View Details (Recipe/Nutrition/Bioactive/Sa
 ```
 src/
 ├── app/
-│   ├── page.tsx              # Main application page (3724 lines)
+│   ├── page.tsx              # Main application page (3791 lines)
 │   ├── layout.tsx            # Root layout with theme provider
 │   ├── globals.css           # Global styles
 │   └── api/
@@ -113,6 +185,8 @@ src/
 │       │   ├── route.ts              # Toxicity data
 │       │   └── import-efsa/route.ts  # EFSA import
 │       ├── upload/route.ts           # File upload
+│       ├── backup/route.ts           # Backup management API
+│       ├── conservation-status/route.ts  # IUCN/CITES lookup
 │       ├── global-edible-items/route.ts
 │       ├── food-types/route.ts
 │       ├── words/
@@ -131,7 +205,8 @@ src/
 │               ├── rejected/route.ts
 │               └── prepared/route.ts
 ├── components/
-│   ├── ingredient-classification-workspace.tsx
+│   ├── ingredient-classification-workspace.tsx  # (3630 lines)
+│   ├── backup-management.tsx                    # (1054 lines)
 │   ├── word-classification-dialog.tsx
 │   ├── hierarchy-review.tsx
 │   ├── theme-provider.tsx
@@ -141,7 +216,11 @@ src/
 │   ├── utils.ts               # Utilities
 │   ├── usda-api.ts            # USDA API
 │   ├── comptox-api.ts         # CompTox API
+│   ├── web-search.ts          # Web search & IUCN API
+│   ├── backup-service.ts      # Backup functionality
 │   └── search-utils.ts        # Search utilities
+├── data/
+│   └── cites-cache.ts         # CITES species cache (41,664 species)
 ├── types/
 │   └── recipe.ts              # TypeScript types
 └── hooks/
@@ -233,6 +312,7 @@ src/
       {/* Word Classification Button */}
       {/* Hierarchy Review Button */}
       {/* Classification Workspace Button */}
+      {/* Backup Management Button */}
       {/* Theme Toggle */}
     </div>
   </div>
@@ -299,7 +379,17 @@ src/
 | **Title** | "Classification Workspace" |
 | **Action** | Opens classification workspace dialog |
 
-#### 7. Theme Toggle
+#### 7. Backup Management Button
+| Property | Value |
+|----------|-------|
+| **Icon** | Archive |
+| **Variant** | ghost |
+| **Size** | icon |
+| **Shape** | rounded-full |
+| **Title** | "Backup Management" |
+| **Action** | Opens backup management dialog |
+
+#### 8. Theme Toggle
 | Property | Value |
 |----------|-------|
 | **Icons** | Sun (light) / Moon (dark) |
@@ -816,6 +906,306 @@ Review and confirm parent-child relationships for ingredient hierarchy.
 - Left: Parent candidates list with filtering
 - Right: Children list with word classification
 - Features: Rejected items view, Prepared items view, Create parent dialog
+- **Conservation Status**: Auto-check from IUCN/CITES for parents
+- **Notes**: Add ethnobotanical notes for parents and children
+
+---
+
+## Backup Management Dialog
+
+### Purpose
+Manage file-based backups stored in `/backups` folder. Supports incremental and full backups.
+
+### Dialog Structure
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ 📦 Backup Management                                                │
+│ File-based backups stored in /backups folder                       │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ ┌─────────────────────────────────────────────────────────────────┐ │
+│ │ CURRENT STATUS                                                  │ │
+│ │ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐               │ │
+│ │ │Total│ │Child│ │Items│ │Pend │ │Words│ │Last │               │ │
+│ │ │Paren│ │ren  │ │Total│ │Items│ │Class│ │Backu│               │ │
+│ │ │ 53  │ │ 126 │ │2239 │ │  0  │ │1315 │ │p    │               │ │
+│ │ └─────┘ └─────┘ └─────┘ └─────┘ └─────┘ └─────┘               │ │
+│ │                                                                 │ │
+│ │ Storage Usage                                                   │ │
+│ │ [████████░░░░░░░░░░░░] 42%                                     │ │
+│ │ 2.1 MB / 5.0 MB                                                │ │
+│ │ [7 Total] [3 Auto] [4 Manual] [5 Incremental] [2 Full]         │ │
+│ └─────────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+│ ┌─────────────────────────────────────────────────────────────────┐ │
+│ │ ACTIONS                                                         │ │
+│ │ ┌─────────────────────────────────────────────────────────────┐ │ │
+│ │ │ 🔧 Incremental Mode                                    [🟢] │ │ │
+│ │ │ Only backup changes since last backup (saves space)         │ │ │
+│ │ └─────────────────────────────────────────────────────────────┘ │ │
+│ │                                                                 │ │
+│ │ [📥 Create Backup]  [🗄 Create Full Backup]                     │ │
+│ │                                                                 │ │
+│ │ Incremental backups save space by storing only changes         │ │
+│ └─────────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+│ ┌─────────────────────────────────────────────────────────────────┐ │
+│ │ BACKUP HISTORY                                                  │ │
+│ │ ┌─────────────────────────────────────────────────────────────┐ │ │
+│ │ │ ☐ backup-2026-03-19...json                                 │ │ │
+│ │ │   [Manual] [Incremental] [3 changes]                        │ │ │
+│ │ │   Includes: Hierarchy, Taxonomy, Conservation, Notes        │ │ │
+│ │ │   🕐 Mar 19, 2026, 5:56 AM • 45.2 KB • 53p, 126c           │ │ │
+│ │ │                                             [↺ Restore]      │ │ │
+│ │ └─────────────────────────────────────────────────────────────┘ │ │
+│ └─────────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Dialog Properties
+| Property | Value |
+|----------|-------|
+| **Max Width** | max-w-5xl |
+| **Height** | h-[85vh] (fixed height for scroll) |
+| **Overflow** | hidden, flex flex-col |
+| **ScrollArea** | flex-1 h-0 (enables scrolling) |
+
+### Current Status Card
+
+**Stats Grid (6 columns):**
+| Stat | Label |
+|------|-------|
+| Total Parents | `totalParents` |
+| Total Children | `totalChildren` |
+| Total Items | `totalItems` |
+| Pending Items | `pendingItems` |
+| Word Classifications | `totalWordClassifications` |
+| Last Backup | `lastBackup` (or "Never") |
+
+**Storage Usage:**
+- Progress bar showing `usagePercent`
+- Colors: Normal (default), Warning (>50%, yellow), Critical (>80%, red)
+- Badge row: Total, Automatic, Manual, Incremental, Full
+
+### Actions Section
+
+**Incremental Mode Toggle:**
+```tsx
+<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+  <div className="flex items-center gap-3">
+    <FileJson className="w-5 h-5 text-emerald-500" />
+    <div>
+      <Label>Incremental Mode</Label>
+      <p className="text-sm text-muted-foreground">
+        Only backup changes since last backup (saves space)
+      </p>
+    </div>
+  </div>
+  <Switch checked={incrementalMode} onCheckedChange={setIncrementalMode} />
+</div>
+```
+
+**Action Buttons:**
+
+| Button | Icon | Description |
+|--------|------|-------------|
+| Create Backup | Download | Creates incremental or full backup based on toggle |
+| Create Full Backup | Database | Always creates full backup |
+| Delete Selected | Trash2 | Deletes selected backups (shown when items selected) |
+
+### Backup History
+
+**Backup Item Card:**
+```tsx
+<div className="border rounded-lg p-4">
+  <div className="flex items-start gap-3">
+    <Checkbox />  {/* For selection */}
+    
+    <div className="flex-1">
+      {/* Name + Badges */}
+      <div className="flex items-center gap-2 mb-2">
+        <span className="font-medium">{backup.name}</span>
+        <Badge>{trigger}</Badge>  {/* Manual/Auto */}
+        <Badge>{type}</Badge>     {/* Incremental/Full */}
+        {backup.changesCount && <Badge>{changesCount} Changes</Badge>}
+      </div>
+      
+      {/* Includes badges */}
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xs">Includes:</span>
+        {includesHierarchy && <Badge>Hierarchy</Badge>}
+        {includesTaxonomy && <Badge>Taxonomy</Badge>}
+        {/* ... other includes */}
+      </div>
+      
+      {/* Metadata row */}
+      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <span><Clock /> {formatDate(backup.createdAt)}</span>
+        <span><FileJson /> {formatSize(backup.fileSizeBytes)}</span>
+        <span>{backup.totalParents} parents, {backup.totalChildren} children</span>
+      </div>
+    </div>
+    
+    <Button variant="outline" size="sm">
+      <RotateCcw /> Restore
+    </Button>
+  </div>
+</div>
+```
+
+### Restore Dialog
+
+**Selective Restore Options:**
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ Selective Restore                                                   │
+│ Select which parts to restore                                       │
+│                                                                     │
+│ backup-2026-03-19...json • 45.2 KB • Incremental                  │
+│                                                                     │
+│ ☑ Hierarchy Relationships                                          │
+│ ☑ Scientific Names                                                 │
+│ ☑ Conservation Status                                              │
+│ ☑ Notes                                                            │
+│ ☑ Word Classifications                                             │
+│ ☐ Audit Logs                                                       │
+│ ☐ Nutrition Data                                                   │
+│ ☐ Recipes                                                          │
+│                                                                     │
+│ [👁 Preview]                              [Cancel] [Confirm Restore] │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Backup Triggers
+
+| Trigger | Icon | Description |
+|---------|------|-------------|
+| manual | FileText | User-initiated backup |
+| hierarchy | Layers | After hierarchy change |
+| taxonomy | Tag | After scientific name update |
+| conservation | Shield | After conservation status update |
+| notes | FileQuestion | After notes update |
+| auto | RefreshCw | Automatic backup |
+
+---
+
+## Conservation Status System
+
+### Purpose
+Track conservation status of wild-harvested ingredients using IUCN Red List and CITES databases.
+
+### Data Flow
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  MexicanFood    │     │  Conservation   │     │   External      │
+│  (taxon field)  │────▶│  Status API     │────▶│   APIs          │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                               │                        │
+                               ▼                        ▼
+                        ┌─────────────────────────────────────┐
+                        │  1. Check KNOWN_STATUS cache        │
+                        │  2. Check CITES_CACHE (41,664 spp)  │
+                        │  3. Try IUCN API (if token set)     │
+                        │  4. Fallback to web search          │
+                        └─────────────────────────────────────┘
+```
+
+### Conservation Status Structure
+
+```typescript
+interface ConservationResult {
+  scientificName: string
+  iucnCategory: string | null      // CR, EN, VU, NT, LC, DD, NE
+  citesStatus: string | null       // I, II, III, not_listed
+  regionalStatus: string | null    // NOM-059, etc.
+  riskLevel: string                // critical, high, moderate, low, stable, unknown
+  tradeRestricted: boolean         // True if CITES I or II
+  sources: string[]                // ['IUCN', 'CITES', 'NOM-059']
+  lastAssessed: string | null      // ISO date
+  matchType: 'exact' | 'genus_inference' | 'web_search' | 'not_found' | 'error'
+  matchedSpecies?: string          // When genus inference used
+  needsVerification?: boolean      // True for inferred results
+}
+```
+
+### IUCN Categories
+
+| Code | Category | Risk Level |
+|------|----------|------------|
+| CR | Critically Endangered | critical |
+| EN | Endangered | high |
+| VU | Vulnerable | moderate |
+| NT | Near Threatened | low |
+| LC | Least Concern | stable |
+| DD | Data Deficient | unknown |
+| NE | Not Evaluated | unknown |
+
+### CITES Appendices
+
+| Appendix | Description | Trade Restricted |
+|----------|-------------|------------------|
+| I | Threatened with extinction | Yes |
+| II | May become threatened | Yes |
+| III | Protected in at least one country | Varies |
+| not_listed | Not on CITES | No |
+
+### Local Cache (KNOWN_STATUS)
+
+The API includes a local cache for commonly used food species:
+
+```typescript
+const KNOWN_STATUS: Record<string, Partial<ConservationResult>> = {
+  // Ceiba pentandra (Pochote, Kapok tree) - Vulnerable
+  'ceiba pentandra': { 
+    iucnCategory: 'VU', 
+    citesStatus: 'not_listed', 
+    riskLevel: 'moderate', 
+    tradeRestricted: false, 
+    sources: ['IUCN'] 
+  },
+  
+  // Sturgeons - critically endangered
+  'acipenser baerii': { iucnCategory: 'EN', citesStatus: 'II', riskLevel: 'high', tradeRestricted: true },
+  
+  // Common safe species
+  'allium cepa': { iucnCategory: 'LC', citesStatus: 'not_listed', riskLevel: 'stable' },
+  // ... more species
+}
+```
+
+### UI in Classification Workspace
+
+**Parent Conservation Status Section:**
+```tsx
+{/* Conservation Status Section */}
+<div className="mt-2 pt-2 border-t">
+  <div className="flex items-center justify-between mb-1.5">
+    <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+      <ShieldAlert className="h-3 w-3" />
+      Conservation Status:
+    </span>
+  </div>
+  
+  {selectedParent.conservationStatus ? (
+    <div className="bg-muted/30 p-2 rounded">
+      {/* Status display with badges */}
+      <div className="flex items-center gap-2 flex-wrap">
+        {iucnCategory && <Badge>{iucnCategory}</Badge>}
+        {citesStatus && <Badge>{citesStatus}</Badge>}
+        <Badge className={riskColor}>{riskLevel}</Badge>
+      </div>
+    </div>
+  ) : (
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-muted-foreground">Not checked</span>
+      <Button size="sm" variant="outline" onClick={checkConservationStatus}>
+        Check Status
+      </Button>
+    </div>
+  )}
+</div>
+```
 
 ---
 
@@ -868,6 +1258,53 @@ Returns toxicity data
 #### `POST /api/toxicity/import-efsa`
 Imports EFSA OpenFoodTox data
 
+### Conservation Status API
+
+#### `GET /api/conservation-status`
+**Query Parameters:**
+| Param | Description |
+|-------|-------------|
+| `scientificName` | Scientific name to check |
+| `itemId` | MexicanFood item ID (to get taxon) |
+| `batch` | Set to 'true' for batch processing |
+
+**Response:**
+```json
+{
+  "success": true,
+  "scientificName": "Ceiba pentandra",
+  "result": {
+    "iucnCategory": "VU",
+    "citesStatus": "not_listed",
+    "riskLevel": "moderate",
+    "tradeRestricted": false,
+    "sources": ["IUCN"],
+    "matchType": "exact"
+  }
+}
+```
+
+#### `POST /api/conservation-status`
+**Body:** `{ itemId, autoLookup: true }`
+**Action:** Auto-lookup and save conservation status
+
+### Backup API
+
+#### `GET /api/backup`
+**Query Parameters:**
+| Param | Description |
+|-------|-------------|
+| `action` | 'stats' or 'list' |
+| `limit` | Number of backups to return |
+
+#### `POST /api/backup`
+**Actions:**
+| Action | Body | Description |
+|--------|------|-------------|
+| `create` | `{ trigger, description, isIncremental }` | Create new backup |
+| `restore` | `{ backupId, restoreOptions, dryRun }` | Restore from backup |
+| `delete-multiple` | `{ backupIds }` | Delete backups |
+
 ### Classification APIs
 
 #### `GET/POST /api/words/classifications`
@@ -878,6 +1315,32 @@ Extract words from Mexican food database
 
 #### `GET/POST /api/mexican-food/classification-workspace`
 Main classification workspace API
+
+**Response includes:**
+```json
+{
+  "candidates": [{
+    "word": "Pochote",
+    "wordLower": "pochote",
+    "itemId": "abc123",
+    "potentialChildren": 0,
+    "isParent": true,
+    "taxon": "Ceiba pentandra",
+    "conservationStatus": "{...json...}",
+    "notes": "Nombre con el que se conoce a Ceiba pentandra..."
+  }]
+}
+```
+
+**Actions:**
+| Action | Body | Description |
+|--------|------|-------------|
+| `set-as-parent` | `{ itemId, scientificName? }` | Confirm as parent |
+| `update-conservation-status` | `{ itemId, conservationStatus }` | Update conservation |
+| `update-notes` | `{ itemId, notes }` | Update notes |
+| `link-children` | `{ childIds, parentId }` | Link children |
+| `reject-children` | `{ childIds }` | Reject children |
+| `mark-prepared` | `{ childIds }` | Mark as prepared |
 
 #### `GET /api/mexican-food/classification-workspace/children`
 Get potential children for a parent
@@ -903,32 +1366,132 @@ Delete file
 
 ## Database Schema
 
-### MexicanFood Model (Key Fields)
+### MexicanFood Model (Complete)
 ```prisma
 model MexicanFood {
-  id                  String   @id
-  conabioId           Int      @unique
-  nombreEspanol       String
-  taxon               String?  // Scientific name
-  tipoAlimento        String?  // VERDURA, FRUTA, VARIOS, MANUAL
-  isParent            Boolean  @default(false)
-  parentIngredientId  String?
-  childCount          Int      @default(0)
-  hierarchyStatus     String?  // pending, confirmed, rejected, prepared
-  claveOriginal       String?  // MANUAL-{NAME} for manually created
+  id                      String   @id @default(cuid())
+  conabioId               Int      @unique
+  nombreEspanol           String
+  taxon                   String?  // Scientific name
+  tipoAlimento            String?  // VERDURA, FRUTA, VARIOS, MANUAL
+  
+  // Hierarchy fields
+  isParent                Boolean  @default(false)
+  parentIngredientId      String?
+  childCount              Int      @default(0)
+  hierarchyStatus         String?  // 'pending', 'confirmed', 'rejected', 'prepared'
+  hierarchyReviewedBy     String?
+  hierarchyReviewedAt     DateTime?
+  hierarchyNotes          String?
+  
+  // Scientific name tracking
+  scientificNameNotNeeded Boolean  @default(false)
+  
+  // Conservation & Notes
+  conservationStatus      String?  // JSON: ConservationResult
+  notes                   String?  // Ethnobotanical notes
+  
+  // For manually created parents
+  claveOriginal           String?  // 'MANUAL-{NAME}' for created parents
+  descripcionAlimento     String?
+  
+  // Nutrition fields (50+ fields)
+  energia                 Float?
+  proteinaBruta           Float?
+  // ... all nutrition fields
+  
+  // Metadata
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  
+  @@map("MexicanFood")
 }
 ```
 
 ### WordClassification Model
 ```prisma
 model WordClassification {
-  id           String   @id
+  id           String   @id @default(cuid())
   word         String
   wordLower    String   @unique
   category     String
+  subcategory  String?
   priority     Int
+  examples     String?
   frequency    Int
-  needsReview  Boolean
+  needsReview  Boolean  @default(true)
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  notes        String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@map("WordClassification")
+}
+```
+
+### BackupRecord Model
+```prisma
+model BackupRecord {
+  id                      String   @id @default(cuid())
+  name                    String
+  filePath                String
+  fileName                String
+  fileSizeBytes           Float
+  checksum                String?
+  
+  // Backup type
+  trigger                 String   // manual, hierarchy, taxonomy, etc.
+  triggerDescription      String?
+  isAutomatic             Boolean  @default(false)
+  isIncremental           Boolean  @default(false)
+  previousBackupId        String?
+  changesCount            Int      @default(0)
+  includesFullSnapshot    Boolean  @default(false)
+  
+  // What's included
+  includesHierarchy       Boolean  @default(true)
+  includesTaxonomy        Boolean  @default(true)
+  includesConservation    Boolean  @default(true)
+  includesNotes           Boolean  @default(true)
+  includesWordClassifications Boolean @default(true)
+  includesAuditLogs       Boolean  @default(false)
+  includesNutrition       Boolean  @default(false)
+  includesRecipes         Boolean  @default(false)
+  
+  // Stats at backup time
+  totalParents            Int
+  totalChildren           Int
+  totalItems              Int
+  pendingItems            Int
+  totalWordClassifications Int
+  
+  // Management
+  isDeleted               Boolean  @default(false)
+  
+  createdAt               DateTime @default(now())
+  
+  @@map("BackupRecord")
+}
+```
+
+### HierarchyAuditLog Model
+```prisma
+model HierarchyAuditLog {
+  id            String   @id @default(cuid())
+  itemId        String
+  itemName      String
+  action        String   // 'set_as_parent', 'link_child', 'update_notes', etc.
+  oldParentId   String?
+  newParentId   String?
+  oldStatus     String?
+  newStatus     String?
+  reviewedBy    String?
+  reason        String?
+  createdAt     DateTime @default(now())
+  
+  @@map("HierarchyAuditLog")
 }
 ```
 
@@ -954,23 +1517,6 @@ model EFSAReferenceValue {
   tdi             Float?
   noael           Float?
   ul              Float?
-}
-```
-
-### HierarchyAuditLog Model
-```prisma
-model HierarchyAuditLog {
-  id            String   @id
-  itemId        String
-  itemName      String
-  action        String
-  oldParentId   String?
-  newParentId   String?
-  oldStatus     String?
-  newStatus     String?
-  reviewedBy    String?
-  reason        String?
-  createdAt     DateTime @default(now())
 }
 ```
 
@@ -1021,6 +1567,7 @@ const [uploadDialogOpen, setUploadDialogOpen] = useState(false)
 const [wordClassificationOpen, setWordClassificationOpen] = useState(false)
 const [hierarchyReviewOpen, setHierarchyReviewOpen] = useState(false)
 const [classificationWorkspaceOpen, setClassificationWorkspaceOpen] = useState(false)
+const [backupManagementOpen, setBackupManagementOpen] = useState(false)
 
 // Nutrition Display State
 const [portionMode, setPortionMode] = useState<'portion' | '100g'>('portion')
@@ -1139,42 +1686,37 @@ const translations = {
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `src/app/page.tsx` | 3724 | Main application page |
-| `src/components/ingredient-classification-workspace.tsx` | 1834 | Classification workspace |
-| `src/components/word-classification-dialog.tsx` | 648 | Word classification UI |
-| `src/components/hierarchy-review.tsx` | 827 | Hierarchy review UI |
-| `src/app/layout.tsx` | 62 | Root layout |
-| `src/types/recipe.ts` | - | TypeScript types |
+| `src/app/page.tsx` | 3791 | Main application page |
+| `src/components/ingredient-classification-workspace.tsx` | 3630 | Classification workspace |
+| `src/components/backup-management.tsx` | 1054 | Backup management dialog |
+| `src/app/api/mexican-food/classification-workspace/route.ts` | ~950 | Classification API |
+| `src/app/api/conservation-status/route.ts` | ~475 | Conservation status API |
+| `src/app/api/backup/route.ts` | ~400 | Backup API |
+| `src/lib/web-search.ts` | ~407 | IUCN API & web search |
+| `src/lib/backup-service.ts` | ~300 | Backup utilities |
 
 ---
 
-## Appendix: Getting Started
+## Deployment Notes
 
-1. **Install Dependencies**
-   ```bash
-   bun install
-   ```
+### Environment Setup
+1. Copy `.env.example` to `.env`
+2. Add required API tokens:
+   - `IUCN_API_TOKEN` - Get from IUCN Red List
+   - `USDA_API_KEY` - Get from USDA FoodData Central
+3. Run `bun run db:push` to initialize database
+4. Run `bun run dev` to start development server
 
-2. **Setup Database**
-   ```bash
-   bun run db:push
-   ```
+### Backup Storage
+- Backups are stored in `/backups` folder
+- Default size limit: 5MB
+- Configure via `maxBackupSizeBytes` in backup API
 
-3. **Run Development Server**
-   ```bash
-   bun run dev
-   ```
-
-4. **Import Data**
-   - Upload nutrition CSV via Documents dialog
-   - Import PhytoHub compounds
-   - Import EFSA toxicity data
-
-5. **Classify Ingredients**
-   - Use Word Classification dialog for word categorization
-   - Use Classification Workspace for parent-child relationships
-   - Use Hierarchy Review for confirmation
+### CITES Cache
+- Pre-loaded with 41,664 species
+- File: `src/data/cites-cache.ts`
+- Generated from CITES Species+ database
 
 ---
 
-*Documentation generated for Phyto Kit - Recipe Discovery & Nutritional Analysis Application*
+*Documentation generated for Phyto Kit v2.0 - March 2026*
